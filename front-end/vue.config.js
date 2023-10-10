@@ -7,7 +7,7 @@ module.exports = defineConfig({
     chainWebpack: config => {
         config.plugin('html')
             .tap(args => {
-                args[0].title = 'vue';
+                args[0].title = '积分管理系统';
                 return args;
             })
     }
