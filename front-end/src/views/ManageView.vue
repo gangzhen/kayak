@@ -268,14 +268,14 @@ export default {
   methods: {
 
     ruleFormData() {
+      let flag = true;
       this.$refs['dialogData'].validate((valid) => {
-        if (valid) {
-          return true;
-        } else {
+        if (!valid) {
           console.log('error rule validate!!');
-          return false;
+          flag = false;
         }
       });
+      return flag;
     },
 
     onSearch() {

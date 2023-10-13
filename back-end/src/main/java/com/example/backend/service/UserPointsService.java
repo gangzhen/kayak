@@ -215,12 +215,12 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
     }
 
     public void add(UserPoints userPoints) {
-        setUserPointValue(userPoints);
+        userPoints = setUserPointValue(userPoints);
         save(userPoints);
     }
 
     public void update(UserPoints userPoints) {
-        setUserPointValue(userPoints);
+        userPoints = setUserPointValue(userPoints);
         updateById(userPoints);
     }
 }
