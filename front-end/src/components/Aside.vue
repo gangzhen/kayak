@@ -18,10 +18,25 @@
         <i class="el-icon-s-flag"></i>
         <span slot="title">积分排名</span>
       </el-menu-item>
-      <el-menu-item index="/charts">
-        <i class="el-icon-data-line"></i>
-        <span slot="title">图表展示</span>
-      </el-menu-item>
+      <el-submenu index="/charts">
+        <template slot="title"><i class="el-icon-data-line"></i>图表展示</template>
+        <el-menu-item-group>
+          <el-menu-item index="/charts/stay">
+            <template slot="title"><i class="el-icon-user-solid"></i>留榜人数</template>
+          </el-menu-item>
+          <el-menu-item index="/charts/stay-rate">
+            <template slot="title"><i class="el-icon-s-help"></i>留榜率</template>
+          </el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group>
+          <el-menu-item index="/charts/entry">
+            <template slot="title"><i class="el-icon-user"></i>新入榜人数</template>
+          </el-menu-item>
+          <el-menu-item index="/charts/entry-rate">
+            <template slot="title"><i class="el-icon-help"></i>新入榜率</template>
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
       <el-menu-item index="/manage">
         <i class="el-icon-takeaway-box"></i>
         <span slot="title">信息管理</span>
@@ -51,6 +66,10 @@ export default {
 
 .el-menu-item:hover {
   color: #fff !important;
+}
+
+.el-submenu .el-menu-item {
+  min-width: 192px;
 }
 
 .el-menu-item.is-active {

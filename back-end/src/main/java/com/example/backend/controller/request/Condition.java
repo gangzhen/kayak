@@ -8,6 +8,7 @@ public class Condition {
     private String region;
     private String sort;
     private int age;
+    private int year;
     private int page;
     private int pageSize;
 }

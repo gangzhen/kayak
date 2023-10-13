@@ -1,0 +1,110 @@
+<template>
+  <div>
+    <div class="p-charts">
+      566
+      <div class="p-charts-chart" id="chartsStayRate"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: "ChartsStayRateView",
+  data() {
+    return {
+      searchForm: {
+        item: 'item1'
+      },
+      chartXData: ['2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+      chartYData: [9.3998, 7.3816, 7.3786, 7.4081, 7.3325, 7.3741, 7.4517],
+    }
+  },
+  created() {
+    this.onSearch();
+  },
+  methods: {
+
+    onSearch() {
+      //TODO 根据条件查询图表数据
+      this.$http.get("/points/stay-rate-chart").then(res => {
+        this.chartXData = res.data.xdata;
+        this.chartYData = res.data.ydata;
+        this.drawChart();
+      })
+    },
+
+    drawChart() {
+      var chartDom = document.getElementById('chartsStayRate');
+      var myChart = this.$echarts.init(chartDom);
+      var option = {
+        xAxis: {
+          type: 'category',
+          data: this.chartXData
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: this.chartYData,
+            itemStyle: {
+              normal: {
+                label : {show: true},
+                color: '#7279ee'
+              }
+            },
+            type: 'line'
+          }
+        ]
+      };
+      myChart.setOption(option);
+    },
+
+    handleItemChange() {
+      console.log(this.searchForm.item)
+      this.onSearch();
+    },
+
+    handleDateChange() {
+      console.log(this.searchForm.date)
+      this.onSearch();
+    },
+
+  },
+}
+</script>
+
+<style>
+
+.el-form {
+  margin: 1vh 10px;
+}
+
+.el-form-item {
+  font-weight: bolder;
+}
+
+.el-input__inner {
+  width: 180px;
+}
+
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+  width: 180px;
+}
+
+.p-charts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84vh;
+  margin-top: 1vh;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+  border-radius: 10px;
+}
+
+.p-charts-chart {
+  width: 80%;
+  height: 80vh;
+}
+</style>

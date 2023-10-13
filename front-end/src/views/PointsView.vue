@@ -2,12 +2,10 @@
   <div>
 
     <el-form :inline="true" :model="searchForm">
-      <el-form-item label="比赛项目:">
-        <el-select v-model="searchForm.item" placeholder="请选择比赛项目" @change="handleItemChange">
-          <el-option label="项目一" value="item1"></el-option>
-          <el-option label="项目二" value="item2"></el-option>
-          <el-option label="项目三" value="item3"></el-option>
-          <el-option label="项目四" value="item4"></el-option>
+      <el-form-item label="性别:">
+        <el-select v-model="searchForm.gender" placeholder="请选择性别" @change="handleGenderChange">
+          <el-option label="男" value="male"></el-option>
+          <el-option label="女" value="female"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="排序:">
@@ -19,17 +17,20 @@
       <el-form-item label="姓名:">
         <el-input v-model="searchForm.name" placeholder="请输入姓名" clearable></el-input>
       </el-form-item>
-      <el-form-item label="年龄:">
-        <el-input v-model="searchForm.age" placeholder="请输入年龄" clearable></el-input>
-      </el-form-item>
+<!--      <el-form-item label="年龄:">-->
+<!--        <el-input v-model="searchForm.age" placeholder="请输入年龄" clearable></el-input>-->
+<!--      </el-form-item>-->
       <el-form-item label="地区:">
         <el-input v-model="searchForm.region" placeholder="请输入地区" clearable></el-input>
       </el-form-item>
       <el-form-item label="日期:">
         <el-date-picker
-            v-model="searchForm.date"
-            type="date"
-            placeholder="选择日期" clearable value-format="timestamp" @change="handleDateChange">
+            v-model="searchForm.year"
+            type="year"
+            value-format="yyyy"
+            placeholder="选择日期"
+            clearable
+            @change="handleYearChange">
         </el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -83,74 +84,86 @@ export default {
   data() {
     return {
       searchForm: {
-        item: 'item1',
+        gender: 'male',
         sort: 'htl',
+        name: '',
+        age: '',
+        region: '',
+        year: new Date().getFullYear().toString()
       },
       totalNum: 30,
       page: 1,
       pageSize: 10,
-      tableData: [{
-        rank: '1',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '2',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '3',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '4',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '5',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '6',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '7',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '8',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '9',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }, {
-        rank: '10',
-        name: '王阳',
-        region: '桦林桦钢',
-        points: '100000',
-      }],
+      tableData: [],
+      // tableData: [{
+      //   rank: '1',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '2',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '3',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '4',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '5',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '6',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '7',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '8',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '9',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }, {
+      //   rank: '10',
+      //   name: '王阳',
+      //   region: '桦林桦钢',
+      //   points: '100000',
+      // }],
     }
+  },
+  created() {
+    this.onSearch();
   },
   methods: {
 
     onSearch() {
-      //TODO 使用page和pageSize分页查询
-      // this.tableData = res.tableData
-      // this.totalNum = res.totalNum
+      // 使用page和pageSize分页查询
+      this.searchForm["page"] = this.page;
+      this.searchForm["pageSize"] = this.pageSize;
+      this.$http.post("/points/search-rank", this.searchForm).then(res => {
+        this.tableData = res.data.records
+        this.totalNum = res.data.total
+      })
     },
 
-    handleItemChange() {
+    handleGenderChange() {
       console.log(this.searchForm.item)
       this.onSearch();
     },
@@ -160,8 +173,8 @@ export default {
       this.onSearch();
     },
 
-    handleDateChange() {
-      console.log(this.searchForm.date)
+    handleYearChange() {
+      console.log(this.searchForm.year)
       this.onSearch();
     },
 

@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.backend.common.RankingLevelPointsEnum;
 import com.example.backend.common.YearStamp;
 import com.example.backend.common.YearUser;
 import com.example.backend.controller.request.Condition;
@@ -17,10 +18,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints> {
@@ -46,6 +44,9 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
         if (condition.getAge() != 0) {
             queryWrapper.like("age", condition.getAge());
         }
+        if (condition.getYear() != 0) {
+            queryWrapper.like("year", condition.getYear());
+        }
         if (condition.getRegion() != null) {
             queryWrapper.like("region", condition.getRegion());
         }
@@ -54,8 +55,14 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
         } else if (condition.getSort().equals("lth")) {
             queryWrapper.orderByAsc("points");
         }
-        //TODO 当前年份
-        return this.page(new Page<>(condition.getPage(), condition.getPageSize()), queryWrapper);
+        Page<UserPoints> result = this.page(new Page<>(condition.getPage(), condition.getPageSize()), queryWrapper);
+        int rank =  (condition.getPage() - 1) * condition.getPageSize() + 1;
+
+        for (int i = 0; i < result.getRecords().size(); i++) {
+            result.getRecords().get(i).setRank(rank);
+            rank++;
+        }
+        return result;
 
     }
 
@@ -190,5 +197,30 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
         });
 
         return new ChartResponse(xData, yData);
+    }
+
+    public UserPoints setUserPointValue(UserPoints userPoints) {
+        RankingLevelPointsEnum rankingPoints = RankingLevelPointsEnum.getRankingPoints(userPoints.getLevel(), userPoints.getTotalCode(), userPoints.getRankingCode());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+
+        userPoints.setPoints((long) rankingPoints.getPoints());
+        userPoints.setTotalCode(rankingPoints.getTotalCode());
+        userPoints.setTotalLevel(rankingPoints.getTotalLevel());
+        userPoints.setRankingCode(rankingPoints.getRankingCode());
+        userPoints.setRankingLevel(rankingPoints.getRankingLevel());
+        userPoints.setYear(calendar.get(Calendar.YEAR));
+        return userPoints;
+    }
+
+    public void add(UserPoints userPoints) {
+        setUserPointValue(userPoints);
+        save(userPoints);
+    }
+
+    public void update(UserPoints userPoints) {
+        setUserPointValue(userPoints);
+        updateById(userPoints);
     }
 }

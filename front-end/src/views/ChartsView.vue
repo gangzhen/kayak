@@ -35,12 +35,11 @@ export default {
         item: 'item1'
       },
       chartXData: ['2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-      chartYData1: [7.3998, 7.3816, 7.3786, 7.4081, 7.3325, 7.3741, 7.4517],
+      chartYData1: ['7.3998', 7.3816, 7.3786, 7.4081, 7.3325, 7.3741, 7.4517],
       chartYData2: [0.8, 0.7, 3, 0.8, 0.8, 0.4, 0.5],
     }
   },
-  mounted() {
-    this.drawLineChart();
+  created() {
   },
   methods: {
 
@@ -48,7 +47,7 @@ export default {
       //TODO 根据条件查询图表数据
     },
 
-    drawLineChart() {
+    drawChart() {
       const colors = ['#5470c6', '#91cc75'];
       var chartDom = document.getElementById('lineChart');
       var myChart = this.$echarts.init(chartDom);

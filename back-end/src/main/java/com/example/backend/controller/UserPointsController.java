@@ -19,7 +19,7 @@ public class UserPointsController {
 
     @PostMapping("/add")
     public Result add(@RequestBody UserPoints userPoints) {
-        userPointsService.save(userPoints);
+        userPointsService.add(userPoints);
         return Result.success("新增成功");
     }
 
@@ -31,7 +31,7 @@ public class UserPointsController {
 
     @PutMapping("/update")
     public Result update(@RequestBody UserPoints userPoints) {
-        userPointsService.updateById(userPoints);
+        userPointsService.update(userPoints);
         return Result.success("编辑成功");
     }
 
