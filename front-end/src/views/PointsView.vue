@@ -8,21 +8,21 @@
           <el-option label="女" value="female"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="排序:">
-        <el-select v-model="searchForm.sort" placeholder="请选择排序" @change="handleSortChange">
-          <el-option label="按积分由高到低" value="htl"></el-option>
-          <el-option label="按积分由低到高" value="lth"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="姓名:">
-        <el-input v-model="searchForm.name" placeholder="请输入姓名" clearable></el-input>
-      </el-form-item>
+<!--      <el-form-item label="排序:">-->
+<!--        <el-select v-model="searchForm.sort" placeholder="请选择排序" @change="handleSortChange">-->
+<!--          <el-option label="按积分由高到低" value="htl"></el-option>-->
+<!--          <el-option label="按积分由低到高" value="lth"></el-option>-->
+<!--        </el-select>-->
+<!--      </el-form-item>-->
+<!--      <el-form-item label="姓名:">-->
+<!--        <el-input v-model="searchForm.name" placeholder="请输入姓名" clearable></el-input>-->
+<!--      </el-form-item>-->
 <!--      <el-form-item label="年龄:">-->
 <!--        <el-input v-model="searchForm.age" placeholder="请输入年龄" clearable></el-input>-->
 <!--      </el-form-item>-->
-      <el-form-item label="地区:">
-        <el-input v-model="searchForm.region" placeholder="请输入地区" clearable></el-input>
-      </el-form-item>
+<!--      <el-form-item label="地区:">-->
+<!--        <el-input v-model="searchForm.region" placeholder="请输入地区" clearable></el-input>-->
+<!--      </el-form-item>-->
       <el-form-item label="日期:">
         <el-date-picker
             v-model="searchForm.year"
@@ -164,7 +164,7 @@ export default {
     },
 
     handleGenderChange() {
-      console.log(this.searchForm.item)
+      console.log(this.searchForm.gender)
       this.onSearch();
     },
 

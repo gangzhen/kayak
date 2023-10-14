@@ -4,6 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://124.223.74.81:3306/points_db?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+#    url: jdbc:mysql://124.223.74.81:3306/points_db?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    url: jdbc:mysql://10.10.10.80:3306/points_db?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
     username: root
     password: x22OSaQn3nI9pgoH40x

@@ -41,6 +41,9 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
         if (condition.getName() != null) {
             queryWrapper.like("name", condition.getName());
         }
+        if (condition.getGender() != null) {
+            queryWrapper.like("gender", condition.getGender());
+        }
         if (condition.getAge() != 0) {
             queryWrapper.like("age", condition.getAge());
         }
