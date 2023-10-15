@@ -50,7 +50,7 @@ export default {
 
 .p-aside {
   min-height: 100vh;
-  background-color: #001529
+  background-color: #d90718
 }
 
 </style>

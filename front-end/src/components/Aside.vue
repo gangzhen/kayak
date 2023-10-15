@@ -9,36 +9,36 @@
     </div>
 
 
-    <el-menu :collapse="isCollapse" :collapse-transition="false" router background-color="#001529"
-             text-color="rgba(255, 255, 255, 0.65)"
+    <el-menu :collapse="isCollapse" :collapse-transition="false" router background-color="#d90718"
+             text-color="rgba(255, 255, 255, 0.95)"
              active-text-color="#fff"
              style="border: none"
              :default-active="$route.path">
       <el-menu-item index="/points">
-        <i class="el-icon-s-flag"></i>
+        <i class="el-icon-s-flag" style="color: rgba(255, 255, 255, 0.95)"></i>
         <span slot="title">积分排名</span>
       </el-menu-item>
       <el-submenu index="/charts">
-        <template slot="title"><i class="el-icon-data-line"></i>图表展示</template>
+        <template slot="title"><i class="el-icon-data-line" style="color: rgba(255, 255, 255, 0.95)"></i>图表展示</template>
         <el-menu-item-group>
           <el-menu-item index="/charts/stay">
-            <template slot="title"><i class="el-icon-user-solid"></i>留榜人数</template>
+            <template slot="title"><i class="el-icon-user-solid" style="color: rgba(255, 255, 255, 0.95)"></i>留榜人数</template>
           </el-menu-item>
           <el-menu-item index="/charts/stay-rate">
-            <template slot="title"><i class="el-icon-s-help"></i>留榜率</template>
+            <template slot="title"><i class="el-icon-s-help" style="color: rgba(255, 255, 255, 0.95)"></i>留榜率</template>
           </el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group>
           <el-menu-item index="/charts/entry">
-            <template slot="title"><i class="el-icon-user"></i>新入榜人数</template>
+            <template slot="title"><i class="el-icon-user" style="color: rgba(255, 255, 255, 0.95)"></i>新入榜人数</template>
           </el-menu-item>
           <el-menu-item index="/charts/entry-rate">
-            <template slot="title"><i class="el-icon-help"></i>新入榜率</template>
+            <template slot="title"><i class="el-icon-help" style="color: rgba(255, 255, 255, 0.95)"></i>新入榜率</template>
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-menu-item index="/manage">
-        <i class="el-icon-takeaway-box"></i>
+        <i class="el-icon-takeaway-box" style="color: rgba(255, 255, 255, 0.95)"></i>
         <span slot="title">信息管理</span>
       </el-menu-item>
     </el-menu>
