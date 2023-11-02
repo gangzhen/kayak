@@ -1,84 +1,3 @@
-<template>
-  <div>
-
-    <el-form :inline="true" :model="searchForm">
-      <el-form-item label="性别:">
-        <el-select v-model="searchForm.gender" placeholder="请选择性别" @change="handleGenderChange">
-          <el-option label="男" value="male"></el-option>
-          <el-option label="女" value="female"></el-option>
-        </el-select>
-      </el-form-item>
-<!--      <el-form-item label="排序:">-->
-<!--        <el-select v-model="searchForm.sort" placeholder="请选择排序" @change="handleSortChange">-->
-<!--          <el-option label="按积分由高到低" value="htl"></el-option>-->
-<!--          <el-option label="按积分由低到高" value="lth"></el-option>-->
-<!--        </el-select>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="姓名:">-->
-<!--        <el-input v-model="searchForm.name" placeholder="请输入姓名" clearable></el-input>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="年龄:">-->
-<!--        <el-input v-model="searchForm.age" placeholder="请输入年龄" clearable></el-input>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="地区:">-->
-<!--        <el-input v-model="searchForm.region" placeholder="请输入地区" clearable></el-input>-->
-<!--      </el-form-item>-->
-      <el-form-item label="日期:">
-        <el-date-picker
-            v-model="searchForm.year"
-            type="year"
-            value-format="yyyy"
-            placeholder="选择日期"
-            clearable
-            @change="handleYearChange">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="info" @click="onSearch">查询</el-button>
-      </el-form-item>
-    </el-form>
-
-    <div class="p-table">
-      <el-table
-          :data="tableData"
-          style="width: 100%">
-        <el-table-column
-            prop="rank"
-            label="排名"
-            width="250"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="name"
-            label="姓名"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="region"
-            label="地区"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="points"
-            label="积分"
-            align="center">
-        </el-table-column>
-      </el-table>
-
-      <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="page"
-          :page-size="pageSize"
-          :total="totalNum"
-          background
-          layout="prev, pager, next">
-      </el-pagination>
-    </div>
-
-
-  </div>
-</template>
 <script>
 export default {
   data() {
@@ -195,50 +114,89 @@ export default {
 
 </script>
 
-<style>
+<template>
+  <div>
 
-.el-form {
-  margin: 1vh 10px;
-}
+    <el-form :inline="true" :model="searchForm">
+      <el-form-item label="性别:">
+        <el-select v-model="searchForm.gender" placeholder="请选择性别" @change="handleGenderChange">
+          <el-option label="男" value="male"></el-option>
+          <el-option label="女" value="female"></el-option>
+        </el-select>
+      </el-form-item>
+      <!--      <el-form-item label="排序:">-->
+      <!--        <el-select v-model="searchForm.sort" placeholder="请选择排序" @change="handleSortChange">-->
+      <!--          <el-option label="按积分由高到低" value="htl"></el-option>-->
+      <!--          <el-option label="按积分由低到高" value="lth"></el-option>-->
+      <!--        </el-select>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="姓名:">-->
+      <!--        <el-input v-model="searchForm.name" placeholder="请输入姓名" clearable></el-input>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="年龄:">-->
+      <!--        <el-input v-model="searchForm.age" placeholder="请输入年龄" clearable></el-input>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="地区:">-->
+      <!--        <el-input v-model="searchForm.region" placeholder="请输入地区" clearable></el-input>-->
+      <!--      </el-form-item>-->
+      <el-form-item label="日期:">
+        <el-date-picker
+            v-model="searchForm.year"
+            type="year"
+            value-format="yyyy"
+            placeholder="选择日期"
+            clearable
+            @change="handleYearChange">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click.native="onSearch">查询</el-button>
+      </el-form-item>
+    </el-form>
 
-.el-form-item {
-  font-weight: bolder;
-}
+    <div class="p-table">
+      <el-table
+          :data="tableData"
+          style="width: 100%">
+        <el-table-column
+            prop="rank"
+            label="排名"
+            width="250"
+            align="center">
+        </el-table-column>
+        <el-table-column
+            prop="name"
+            label="姓名"
+            align="center">
+        </el-table-column>
+        <el-table-column
+            prop="region"
+            label="地区"
+            align="center">
+        </el-table-column>
+        <el-table-column
+            prop="points"
+            label="积分"
+            align="center">
+        </el-table-column>
+      </el-table>
 
-.el-input__inner {
-  width: 180px;
-}
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="page"
+          :page-size="pageSize"
+          :total="totalNum"
+          background
+          layout="prev, pager, next">
+      </el-pagination>
+    </div>
 
-.el-date-editor.el-input, .el-date-editor.el-input__inner {
-  width: 180px;
-}
 
-.el-table {
-  height: 78vh;
-  font-size: 14px;
-  padding-top: 1vh;
-  padding-left: 3vh;
-  padding-right: 3vh;
-}
+  </div>
+</template>
 
-.el-table__header-wrapper {
-  font-size: 16px;
-}
-
-.el-table__row {
-  height: 7.4vh;
-}
-
-.el-pagination {
-  margin-top: 1vh;
-  display: flex;
-  justify-content: center;
-}
-
-.el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #6E77F2;
-  color: #fff;
-}
+<style scoped>
 
 .p-table {
   height: 84vh;

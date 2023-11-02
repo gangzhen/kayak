@@ -20,6 +20,11 @@ const routes = [
 
         ]
     },
+    {
+        path: '/login',
+        name: '注册',
+        component: () => import('../views/Login.vue'),
+    },
 ]
 
 const router = new VueRouter({

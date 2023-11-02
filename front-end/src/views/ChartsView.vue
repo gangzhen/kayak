@@ -1,30 +1,3 @@
-<template>
-  <div>
-
-    <el-form :inline="true" :model="searchForm">
-      <el-form-item label="比赛项目:">
-        <el-select v-model="searchForm.item" placeholder="请选择比赛项目" @change="handleItemChange">
-          <el-option label="项目一" value="item1"></el-option>
-          <el-option label="项目二" value="item2"></el-option>
-          <el-option label="项目三" value="item3"></el-option>
-          <el-option label="项目四" value="item4"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="日期:">
-        <el-date-picker
-            v-model="searchForm.date"
-            type="date"
-            placeholder="选择日期" clearable value-format="timestamp" @change="handleDateChange">
-        </el-date-picker>
-      </el-form-item>
-    </el-form>
-
-    <div class="p-charts">
-      <div class="p-charts-chart" id="lineChart"></div>
-    </div>
-  </div>
-</template>
-
 <script>
 
 export default {
@@ -167,23 +140,34 @@ export default {
 }
 </script>
 
-<style>
+<template>
+  <div>
 
-.el-form {
-  margin: 1vh 10px;
-}
+    <el-form :inline="true" :model="searchForm">
+      <el-form-item label="比赛项目:">
+        <el-select v-model="searchForm.item" placeholder="请选择比赛项目" @change="handleItemChange">
+          <el-option label="项目一" value="item1"></el-option>
+          <el-option label="项目二" value="item2"></el-option>
+          <el-option label="项目三" value="item3"></el-option>
+          <el-option label="项目四" value="item4"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="日期:">
+        <el-date-picker
+            v-model="searchForm.date"
+            type="date"
+            placeholder="选择日期" clearable value-format="timestamp" @change="handleDateChange">
+        </el-date-picker>
+      </el-form-item>
+    </el-form>
 
-.el-form-item {
-  font-weight: bolder;
-}
+    <div class="p-charts">
+      <div class="p-charts-chart" id="lineChart"></div>
+    </div>
+  </div>
+</template>
 
-.el-input__inner {
-  width: 180px;
-}
-
-.el-date-editor.el-input, .el-date-editor.el-input__inner {
-  width: 180px;
-}
+<style scoped>
 
 .p-charts {
   display: flex;

@@ -1,3 +1,16 @@
+<script>
+export default {
+  name: 'Aside',
+  props: {
+    isCollapse: Boolean
+  },
+  data() {
+    return {}
+  }
+
+}
+</script>
+
 <template>
   <div>
 
@@ -19,21 +32,28 @@
         <span slot="title">积分排名</span>
       </el-menu-item>
       <el-submenu index="/charts">
-        <template slot="title"><i class="el-icon-data-line" style="color: rgba(255, 255, 255, 0.95)"></i>图表展示</template>
+        <template slot="title">
+          <i class="el-icon-data-line" style="color: rgba(255, 255, 255, 0.95)"></i>
+          <span slot="title">图表展示</span>
+        </template>
         <el-menu-item-group>
           <el-menu-item index="/charts/stay">
-            <template slot="title"><i class="el-icon-user-solid" style="color: rgba(255, 255, 255, 0.95)"></i>留榜人数</template>
+            <i class="el-icon-user-solid" style="color: rgba(255, 255, 255, 0.95)"></i>
+            <span slot="title">留榜人数</span>
           </el-menu-item>
           <el-menu-item index="/charts/stay-rate">
-            <template slot="title"><i class="el-icon-s-help" style="color: rgba(255, 255, 255, 0.95)"></i>留榜率</template>
+            <i class="el-icon-s-help" style="color: rgba(255, 255, 255, 0.95)"></i>
+            <span slot="title">留榜率</span>
           </el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group>
           <el-menu-item index="/charts/entry">
-            <template slot="title"><i class="el-icon-user" style="color: rgba(255, 255, 255, 0.95)"></i>新入榜人数</template>
+            <i class="el-icon-user" style="color: rgba(255, 255, 255, 0.95)"></i>
+            <span slot="title">新入榜人数</span>
           </el-menu-item>
           <el-menu-item index="/charts/entry-rate">
-            <template slot="title"><i class="el-icon-help" style="color: rgba(255, 255, 255, 0.95)"></i>新入榜率</template>
+            <i class="el-icon-help" style="color: rgba(255, 255, 255, 0.95)"></i>
+            <span slot="title">新入榜率</span>
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -44,20 +64,8 @@
     </el-menu>
   </div>
 </template>
-<script>
-export default {
-  name: 'Aside',
-  props: {
-    isCollapse: Boolean
-  },
-  data() {
-    return {}
-  }
 
-}
-</script>
-
-<style>
+<style scoped>
 
 .el-menu-item {
   height: 40px !important;

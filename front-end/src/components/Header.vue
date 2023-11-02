@@ -1,3 +1,27 @@
+<script>
+export default {
+  name: 'Header',
+  data() {
+    return {
+      isCollapse: false,
+      collapseIcon: 'el-icon-s-fold'
+    }
+  },
+  methods: {
+    handleCollapse() {
+      this.isCollapse = !this.isCollapse;
+      this.collapseIcon = this.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold';
+      this.cbCollapse();
+    },
+    // 父子组件回调父组件方法
+    cbCollapse() {
+      this.$emit('cbCollapse:value', this.isCollapse);
+    }
+  }
+
+}
+</script>
+
 <template>
   <div>
 
@@ -19,31 +43,8 @@
 
   </div>
 </template>
-<script>
-export default {
-  name: 'Header',
-  data() {
-    return {
-      isCollapse: false,
-      collapseIcon: 'el-icon-s-fold'
-    }
-  },
-  methods: {
-    handleCollapse() {
-      this.isCollapse = !this.isCollapse;
-      this.collapseIcon = this.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold';
-      this.cbCollapse();
-    },
-    // 父子组件回调父组件方法
-    cbCollapse() {
-      this.$emit('cbCollapse', this.isCollapse);
-    }
-  }
 
-}
-</script>
-
-<style>
+<style scoped>
 
 .el-header {
   display: flex;

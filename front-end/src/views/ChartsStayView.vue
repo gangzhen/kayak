@@ -1,11 +1,3 @@
-<template>
-  <div>
-    <div class="p-charts">
-      <div class="p-charts-chart" id="chartsStay"></div>
-    </div>
-  </div>
-</template>
-
 <script>
 
 export default {
@@ -92,23 +84,15 @@ export default {
 }
 </script>
 
-<style>
+<template>
+  <div>
+    <div class="p-charts">
+      <div class="p-charts-chart" id="chartsStay"></div>
+    </div>
+  </div>
+</template>
 
-.el-form {
-  margin: 1vh 10px;
-}
-
-.el-form-item {
-  font-weight: bolder;
-}
-
-.el-input__inner {
-  width: 180px;
-}
-
-.el-date-editor.el-input, .el-date-editor.el-input__inner {
-  width: 180px;
-}
+<style scoped>
 
 .p-charts {
   display: flex;

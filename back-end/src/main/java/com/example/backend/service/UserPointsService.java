@@ -76,8 +76,8 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
     }
 
     public YearStamp calYearTimestamp(int year) {
-        long startTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(year + "-01-01 20:00:00", new ParsePosition(0)).getTime() / 1000;
-        long endTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(year + "2018-12-31 20:00:00", new ParsePosition(0)).getTime() / 1000;
+        long startTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(year + "-01-01 00:00:00", new ParsePosition(0)).getTime() / 1000;
+        long endTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(year + "-12-31 23:59:59", new ParsePosition(0)).getTime() / 1000;
         return new YearStamp(startTime, endTime);
     }
 
@@ -101,12 +101,15 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
             List<UserPoints> userPoints = searchIdNumberGroupByYear(year.getYear());
             yearUsersMap.put(year.getYear(), userPoints);
 
-            if (i != 0) {
-                YearUser yearUser = new YearUser();
-                yearUser.setCurrentYearUser(yearUsersMap.get(year.getYear()));
+            YearUser yearUser = new YearUser();
+            yearUser.setCurrentYearUser(yearUsersMap.get(year.getYear()));
+            if (i == 0) {
+                yearUser.setLastYearUser(new ArrayList<>());
+            } else {
                 yearUser.setLastYearUser(yearUsersMap.get(year.getYear() - 1));
-                twoYearMap.put(year.getYear(), yearUser);
             }
+            twoYearMap.put(year.getYear(), yearUser);
+
         }
         return twoYearMap;
 
