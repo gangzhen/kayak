@@ -109,7 +109,7 @@ export default {
       let flag = true;
       this.$refs['dialogData'].validate((valid) => {
         if (!valid) {
-          console.log('error rule validate!!');
+          console.log('规则校验失败');
           flag = false;
         }
       });

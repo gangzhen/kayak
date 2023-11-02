@@ -63,3 +63,60 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.el-header {
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+}
+
+.el-breadcrumb {
+    font-size: 16px !important;
+    line-height: 26px !important;
+}
+
+.el-aside {
+    transition: width .3s;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+}
+
+.el-menu-item {
+    height: 40px !important;
+    line-height: 40px !important;
+    transition: none !important;
+}
+
+.el-submenu .el-menu-item {
+    min-width: 192px !important;
+}
+
+.el-submenu__title {
+    height: 40px !important;
+    line-height: 40px !important;
+}
+
+.el-menu-item-group__title {
+    padding: 0 !important;
+}
+
+.el-menu-item:hover {
+    color: #fff !important;
+}
+
+.el-submenu__title:hover {
+    color: #fff !important;
+}
+
+.el-menu-item.is-active {
+    background-color: #1890ff !important;
+    border-radius: 6px;
+    margin: 4px;
+}
+
+.el-menu-item.is-active i {
+    margin-left: -4px;
+}
+
+.el-menu-item.is-active .el-tooltip i {
+    margin-left: -4px;
+}

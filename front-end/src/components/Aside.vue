@@ -5,7 +5,62 @@ export default {
     isCollapse: Boolean
   },
   data() {
-    return {}
+    return {
+      breadcrumb: [],
+    }
+  },
+  mounted() {
+    this.handleMenuSelect(this.$route.path)
+  },
+  methods: {
+
+    handleMenuSelect(key) {
+      this.updateBreadcrumb(key);
+      this.cbBreadcrumb();
+      console.log(key)
+    },
+
+    updateBreadcrumb(key) {
+      if (key === '/points') {
+        this.breadcrumb = [
+          { text: '管理系统', link: '' },
+          { text: '积分排名', link: '' },
+        ];
+      } else if (key === '/charts/stay') {
+        this.breadcrumb = [
+          { text: '管理系统', link: '' },
+          { text: '图表展示', link: '' },
+          { text: '留榜人数', link: '' },
+        ];
+      } else if (key === '/charts/stay-rate') {
+        this.breadcrumb = [
+          { text: '管理系统', link: '' },
+          { text: '图表展示', link: '' },
+          { text: '留榜率', link: '' },
+        ];
+      } else if (key === '/charts/entry') {
+        this.breadcrumb = [
+          { text: '管理系统', link: '' },
+          { text: '图表展示', link: '' },
+          { text: '新入榜人数', link: '' },
+        ];
+      } else if (key === '/charts/entry-rate') {
+        this.breadcrumb = [
+          { text: '管理系统', link: '' },
+          { text: '图表展示', link: '' },
+          { text: '新入榜率', link: '' },
+        ];
+      } else if (key === '/manage') {
+        this.breadcrumb = [
+          { text: '管理系统', link: '' },
+          { text: '信息管理', link: '' },
+        ];
+      }
+    },
+
+    cbBreadcrumb() {
+      this.$emit('breadcrumb:value', this.breadcrumb)
+    },
   }
 
 }
@@ -21,12 +76,12 @@ export default {
       <span v-show="!isCollapse">管理系统</span>
     </div>
 
-
     <el-menu :collapse="isCollapse" :collapse-transition="false" router background-color="#d90718"
-             text-color="rgba(255, 255, 255, 0.95)"
+             text-color="rgba(255, 255, 255, 0.8)"
              active-text-color="#fff"
              style="border: none"
-             :default-active="$route.path">
+             :default-active="$route.path"
+             @select="handleMenuSelect">
       <el-menu-item index="/points">
         <i class="el-icon-s-flag" style="color: rgba(255, 255, 255, 0.95)"></i>
         <span slot="title">积分排名</span>
@@ -66,38 +121,6 @@ export default {
 </template>
 
 <style scoped>
-
-.el-menu-item {
-  height: 40px !important;
-  line-height: 40px !important;
-}
-
-.el-menu-item:hover {
-  color: #fff !important;
-}
-
-.el-submenu .el-menu-item {
-  min-width: 192px;
-}
-
-.el-menu-item.is-active {
-  background-color: #1890ff !important;
-  border-radius: 6px;
-  margin: 4px;
-}
-
-.el-menu-item.is-active i {
-  margin-left: -4px;
-}
-
-.el-menu-item.is-active .el-tooltip i {
-  margin-left: -4px;
-}
-
-.el-aside {
-  transition: width .3s;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-}
 
 .logo-img {
   height: 150px;

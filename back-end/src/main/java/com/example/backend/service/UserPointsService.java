@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -28,7 +29,7 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
 
     public Page<UserPoints> searchUserPoints(ConditionItem conditionItem) {
         QueryWrapper<UserPoints> queryWrapper = new QueryWrapper<>();
-        if (conditionItem.getName() != null) {
+        if (!StrUtil.isBlank(conditionItem.getName())) {
             queryWrapper.like("name", conditionItem.getName());
         }
         return this.page(new Page<>(conditionItem.getPage(), conditionItem.getPageSize()), queryWrapper);
@@ -38,10 +39,10 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
         QueryWrapper<UserPoints> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("name", "gender", "age", "id_number", "region", "IFNULL(sum(points),0) as 'points'")
                 .groupBy("name", "gender", "age", "id_number", "region");
-        if (condition.getName() != null) {
+        if (!StrUtil.isBlank(condition.getName())) {
             queryWrapper.like("name", condition.getName());
         }
-        if (condition.getGender() != null) {
+        if (!StrUtil.isBlank(condition.getGender())) {
             queryWrapper.like("gender", condition.getGender());
         }
         if (condition.getAge() != 0) {
@@ -50,14 +51,15 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
         if (condition.getYear() != 0) {
             queryWrapper.like("year", condition.getYear());
         }
-        if (condition.getRegion() != null) {
+        if (!StrUtil.isBlank(condition.getRegion())) {
             queryWrapper.like("region", condition.getRegion());
         }
-        if (condition.getSort() == null || condition.getSort().equals("htl")) {
+        if (StrUtil.isBlank(condition.getSort()) || condition.getSort().equals("htl")) {
             queryWrapper.orderByDesc("points");
         } else if (condition.getSort().equals("lth")) {
             queryWrapper.orderByAsc("points");
         }
+
         Page<UserPoints> result = this.page(new Page<>(condition.getPage(), condition.getPageSize()), queryWrapper);
         int rank =  (condition.getPage() - 1) * condition.getPageSize() + 1;
 

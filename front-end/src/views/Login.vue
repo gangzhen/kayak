@@ -8,21 +8,66 @@ export default {
     ValidCode
   },
   data() {
+
+    const validateCodeRule = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入验证码'))
+      } else if (value !== this.validCode) {
+        callback(new Error('验证码错误'))
+      } else {
+        callback();
+      }
+    }
+
     return {
       loginForm: {
-        username: '',
-        password: ''
+        idNumber: '',
+        password: '',
+        validCode: '',
       },
-      validCode: ''
+      validCode: '',
+      loginRules: {
+        idNumber: [
+          {required: true, message: '请输入账号', trigger: 'blur'},
+        ],
+        password: [
+          {required: true, message: '请输入密码', trigger: 'blur'},
+        ],
+        validCode: [
+          {validator: validateCodeRule, trigger: 'submit'},
+        ],
+      },
     }
   },
   methods: {
-    handleLogin() {
-      console.log("登录")
-    },
-    rcValidCode(code) {
 
-    }
+    handleLogin() {
+      if (this.ruleLoginForm()) {
+        this.$http.post('/login/login', this.loginForm).then(res => {
+          if (res.code === '200') {
+            this.$router.push('/')
+            this.$message.success('登陆成功')
+          } else {
+            this.$message.error(res.msg)
+          }
+        })
+      }
+    },
+
+    rcValidCode(code) {
+      this.validCode = code;
+    },
+
+    ruleLoginForm() {
+      let flag = true;
+      this.$refs['loginForm'].validate((valid) => {
+        if (!valid) {
+          console.log('规则校验失败');
+          flag = false;
+        }
+      });
+      return flag;
+    },
   }
 }
 </script>
@@ -35,10 +80,10 @@ export default {
         <img src="@/assets/login.png" alt="" style="width: 100%;">
       </div>
       <div class="p-login-area-input">
-        <el-form class="p-login-area-input-form" :model="loginForm">
+        <el-form class="p-login-area-input-form" :model="loginForm" :rules="loginRules" ref="loginForm">
           <div class="p-login-area-input-title">中国网球协会赛事</div>
-          <el-form-item prop="username">
-            <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="el-icon-user"></el-input>
+          <el-form-item prop="idNumber">
+            <el-input v-model="loginForm.idNumber" placeholder="请输入身份证号" prefix-icon="el-icon-user"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="el-icon-lock"
@@ -46,7 +91,7 @@ export default {
           </el-form-item>
           <el-form-item prop="validCode">
             <div style="display: flex">
-              <el-input style="flex: 1;" prefix-icon="el-icon-postcard"></el-input>
+              <el-input v-model="loginForm.validCode" style="flex: 1;" placeholder="请输入验证码" prefix-icon="el-icon-postcard"></el-input>
               <div class="p-login-area-input-valid">
                 <ValidCode @update:value="rcValidCode" />
               </div>
@@ -110,6 +155,7 @@ export default {
   font-size: 20px;
   font-weight: bolder;
   text-align: center;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 

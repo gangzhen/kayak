@@ -13,12 +13,18 @@ export default {
     return {
       asideWidth: '200px',
       isCollapse: false,
+      breadcrumb: []
     }
   },
   methods: {
+
     rcCollapse(flag) {
       this.isCollapse = flag;
       this.asideWidth = flag ? '64px' : '200px';
+    },
+
+    rcBreadcrumb(data) {
+      this.breadcrumb = data
     }
   }
 }
@@ -29,13 +35,13 @@ export default {
     <el-container>
       <!--      侧边栏-->
       <el-aside class="p-aside" :width="asideWidth">
-        <Aside :isCollapse="isCollapse"/>
+        <Aside :isCollapse="isCollapse" @breadcrumb:value="rcBreadcrumb" />
       </el-aside>
 
       <el-container>
         <!--        头部区域-->
         <el-header>
-          <Header @cbCollapse:value="rcCollapse"/>
+          <Header :breadcrumb="breadcrumb" @cbCollapse:value="rcCollapse"/>
         </el-header>
         <!--        主体区域-->
         <el-main>

@@ -1,6 +1,9 @@
 <script>
 export default {
   name: 'Header',
+  props: {
+    breadcrumb: Array
+  },
   data() {
     return {
       isCollapse: false,
@@ -8,11 +11,13 @@ export default {
     }
   },
   methods: {
+
     handleCollapse() {
       this.isCollapse = !this.isCollapse;
       this.collapseIcon = this.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold';
       this.cbCollapse();
     },
+
     // 父子组件回调父组件方法
     cbCollapse() {
       this.$emit('cbCollapse:value', this.isCollapse);
@@ -26,16 +31,15 @@ export default {
   <div>
 
     <el-row>
-      <el-col :span="4">
-        <div style="width: 40px">
+      <el-col :span="3">
+        <div style="width: 25px">
           <span :class="collapseIcon" style="font-size: 25px;" @click="handleCollapse"></span>
         </div>
       </el-col>
       <el-col :span="20">
-        <div style="width: 200px;">
+        <div style="width: 300px;">
           <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/' }">管理系统</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/points' }">积分排名</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="item in breadcrumb" :to="item.link" :key="item.text">{{ item.text }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
@@ -45,17 +49,5 @@ export default {
 </template>
 
 <style scoped>
-
-.el-header {
-  display: flex;
-  align-items: center;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-}
-
-.el-breadcrumb {
-  font-size: 16px;
-  height: 26px;
-  line-height: 26px;
-}
 
 </style>

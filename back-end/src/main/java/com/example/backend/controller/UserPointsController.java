@@ -10,11 +10,13 @@ import com.example.backend.service.UserPointsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 @RestController
 @RequestMapping("/points")
 public class UserPointsController {
 
-    @Autowired
+    @Resource
     UserPointsService userPointsService;
 
     @PostMapping("/add")
