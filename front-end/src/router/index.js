@@ -22,8 +22,13 @@ const routes = [
     },
     {
         path: '/login',
-        name: '注册',
+        name: '登录',
         component: () => import('../views/Login.vue'),
+    },
+    {
+        path: '/register',
+        name: '注册',
+        component: () => import('../views/Register.vue'),
     },
 ]
 

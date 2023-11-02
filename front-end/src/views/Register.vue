@@ -3,7 +3,7 @@
 import ValidCode from "@/components/ValidCode.vue";
 
 export default {
-  name: "Login",
+  name: "Register",
   components: {
     ValidCode
   },
@@ -20,13 +20,16 @@ export default {
     }
 
     return {
-      loginForm: {
+      registerForm: {
+        username: '',
         idNumber: '',
         password: '',
+        confirmPassword: '',
+        phoneNumber: '',
         validCode: '',
       },
       validCode: '',
-      loginRules: {
+      registerRules: {
         idNumber: [
           {required: true, message: '请输入账号', trigger: 'blur'},
         ],
@@ -41,9 +44,10 @@ export default {
   },
   methods: {
 
-    handleLogin() {
-      if (this.ruleLoginForm()) {
-        this.$http.post('/login/login', this.loginForm).then(res => {
+    handleRegister() {
+      if (this.ruleRegisterForm()) {
+        //TODO 修改注册接口
+        this.$http.post('/login/login', this.registerForm).then(res => {
           if (res.code === '200') {
             localStorage.setItem('userInfo', JSON.stringify(res.data))
             this.$router.push('/')
@@ -53,19 +57,16 @@ export default {
           }
         })
       }
-    },
 
-    handleRegister() {
-      this.$router.push('/register')
     },
 
     rcValidCode(code) {
       this.validCode = code;
     },
 
-    ruleLoginForm() {
+    ruleRegisterForm() {
       let flag = true;
-      this.$refs['loginForm'].validate((valid) => {
+      this.$refs['registerForm'].validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
           flag = false;
@@ -79,37 +80,43 @@ export default {
 
 <template>
 
-  <div class="p-login">
-    <div class="p-login-area">
-      <div class="p-login-area-img">
+  <div class="p-register">
+    <div class="p-register-area">
+      <div class="p-register-area-img">
         <img src="../assets/loginAndRegister.png" alt="" style="width: 100%;">
       </div>
-      <div class="p-login-area-input">
-        <el-form class="p-login-area-input-form" :model="loginForm" :rules="loginRules" ref="loginForm">
-          <div class="p-login-area-input-title">中国网球协会赛事</div>
+      <div class="p-register-area-input">
+        <el-form class="p-register-area-input-form" :model="registerForm" :rules="registerRules" ref="registerForm">
+          <div class="p-register-area-input-title">中国网球协会赛事</div>
           <el-form-item prop="idNumber">
-            <el-input v-model="loginForm.idNumber" placeholder="请输入身份证号" prefix-icon="el-icon-postcard"></el-input>
+            <el-input v-model="registerForm.username" placeholder="请输入姓名" prefix-icon="el-icon-user"></el-input>
+          </el-form-item>
+          <el-form-item prop="idNumber">
+            <el-input v-model="registerForm.idNumber" placeholder="请输入身份证号" prefix-icon="el-icon-postcard"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="el-icon-lock"
+            <el-input v-model="registerForm.password" placeholder="请输入密码" prefix-icon="el-icon-lock"
                       show-password></el-input>
+          </el-form-item>
+          <el-form-item prop="confirmPassword">
+            <el-input v-model="registerForm.confirmPassword" placeholder="请确认密码" prefix-icon="el-icon-lock"
+                      show-password></el-input>
+          </el-form-item>
+          <el-form-item prop="phoneNumber">
+            <el-input v-model="registerForm.phoneNumber" placeholder="请输入手机号" prefix-icon="el-icon-mobile-phone"></el-input>
           </el-form-item>
           <el-form-item prop="validCode">
             <div style="display: flex">
-              <el-input v-model="loginForm.validCode" style="flex: 1;" placeholder="请输入验证码"
+              <el-input v-model="registerForm.validCode" style="flex: 1;" placeholder="请输入验证码"
                         prefix-icon="el-icon-postcard"></el-input>
-              <div class="p-login-area-input-valid">
+              <div class="p-register-area-input-valid">
                 <ValidCode @update:value="rcValidCode"/>
               </div>
             </div>
           </el-form-item>
-          <div style="display: flex; margin-bottom: 10px">
-            <div style="flex: 1; text-align: left">首次登录，请先<span class="p-login-area-input-jump" @click="handleRegister"> 注册 </span>
-            </div>
-            <div style="flex: 1; text-align: right"><span class="p-login-area-input-jump">忘记密码？</span></div>
-          </div>
+
           <el-form-item>
-            <el-button type="primary" style="width: 100%" @click.native="handleLogin">登 录</el-button>
+            <el-button type="primary" style="width: 100%" @click.native="handleRegister">注 册</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -121,7 +128,7 @@ export default {
 
 <style scoped>
 
-.p-login {
+.p-register {
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -130,7 +137,7 @@ export default {
   background-color: #d90718;
 }
 
-.p-login-area {
+.p-register-area {
   display: flex;
   background-color: white;
   width: 40%;
@@ -139,25 +146,25 @@ export default {
   overflow: hidden;
 }
 
-.p-login-area-img {
+.p-register-area-img {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.p-login-area-input {
+.p-register-area-input {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.p-login-area-input-form {
+.p-register-area-input-form {
   width: 80%
 }
 
-.p-login-area-input-title {
+.p-register-area-input-title {
   font-size: 20px;
   font-weight: bolder;
   text-align: center;
@@ -165,12 +172,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.p-login-area-input-jump {
-  color: #1890ff;
-  cursor: pointer;
-}
-
-.p-login-area-input-valid {
+.p-register-area-input-valid {
   flex: 1;
   height: 32px;
   display: flex;
