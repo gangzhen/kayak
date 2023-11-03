@@ -4,7 +4,7 @@ import Header from '@/components/Header.vue'
 import Aside from '@/components/Aside.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'Layout',
   components: {
     Header,
     Aside
@@ -13,7 +13,7 @@ export default {
     return {
       asideWidth: '200px',
       isCollapse: false,
-      breadcrumb: []
+      breadcrumb: [],
     }
   },
   methods: {
@@ -35,7 +35,7 @@ export default {
     <el-container>
       <!--      侧边栏-->
       <el-aside class="p-aside" :width="asideWidth">
-        <Aside :isCollapse="isCollapse" @breadcrumb:value="rcBreadcrumb" />
+        <Aside :isCollapse="isCollapse" @breadcrumb:value="rcBreadcrumb"/>
       </el-aside>
 
       <el-container>

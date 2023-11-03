@@ -1,7 +1,6 @@
-package com.example.backend.common;
+package com.example.backend.common.encapsulation;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

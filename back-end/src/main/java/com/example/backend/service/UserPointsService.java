@@ -4,14 +4,15 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.backend.common.RankingLevelPointsEnum;
-import com.example.backend.common.YearStamp;
-import com.example.backend.common.YearUser;
+import com.example.backend.common.enums.RankingLevelPointsEnum;
+import com.example.backend.common.encapsulation.YearStamp;
+import com.example.backend.common.encapsulation.YearUser;
 import com.example.backend.controller.request.Condition;
 import com.example.backend.controller.request.ConditionItem;
 import com.example.backend.controller.response.ChartResponse;
 import com.example.backend.entity.UserPoints;
 import com.example.backend.mapper.UserPointsMapper;
+import com.example.backend.utils.CustomDateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,13 +44,13 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
             queryWrapper.like("name", condition.getName());
         }
         if (!StrUtil.isBlank(condition.getGender())) {
-            queryWrapper.like("gender", condition.getGender());
+            queryWrapper.eq("gender", condition.getGender());
         }
         if (condition.getAge() != 0) {
-            queryWrapper.like("age", condition.getAge());
+            queryWrapper.eq("age", condition.getAge());
         }
         if (condition.getYear() != 0) {
-            queryWrapper.like("year", condition.getYear());
+            queryWrapper.eq("year", condition.getYear());
         }
         if (!StrUtil.isBlank(condition.getRegion())) {
             queryWrapper.like("region", condition.getRegion());
@@ -210,15 +211,13 @@ public class UserPointsService extends ServiceImpl<UserPointsMapper, UserPoints>
     public UserPoints setUserPointValue(UserPoints userPoints) {
         RankingLevelPointsEnum rankingPoints = RankingLevelPointsEnum.getRankingPoints(userPoints.getLevel(), userPoints.getTotalCode(), userPoints.getRankingCode());
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
 
         userPoints.setPoints((long) rankingPoints.getPoints());
         userPoints.setTotalCode(rankingPoints.getTotalCode());
         userPoints.setTotalLevel(rankingPoints.getTotalLevel());
         userPoints.setRankingCode(rankingPoints.getRankingCode());
         userPoints.setRankingLevel(rankingPoints.getRankingLevel());
-        userPoints.setYear(calendar.get(Calendar.YEAR));
+        userPoints.setYear(CustomDateUtils.getCurrentYear());
         return userPoints;
     }
 

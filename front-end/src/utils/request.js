@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from "@/router";
 
 const request = axios.create({
     baseURL: process.env.VUE_APP_BASEURL,
@@ -11,7 +12,9 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
 
-    // config.headers['token'] = user.token;  // 设置请求头
+    let user = JSON.parse(localStorage.getItem("userInfo") || '{}');
+    config.headers['token'] = user.token;  // 设置请求头
+
     return config
 }, error => {
     return Promise.reject(error)

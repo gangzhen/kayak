@@ -14,57 +14,6 @@ export default {
       page: 1,
       pageSize: 10,
       tableData: [],
-      // tableData: [{
-      //   rank: '1',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '2',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '3',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '4',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '5',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '6',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '7',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '8',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '9',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }, {
-      //   rank: '10',
-      //   name: '王阳',
-      //   region: '桦林桦钢',
-      //   points: '100000',
-      // }],
     }
   },
   created() {

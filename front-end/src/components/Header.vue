@@ -2,12 +2,13 @@
 export default {
   name: 'Header',
   props: {
-    breadcrumb: Array
+    breadcrumb: Array,
   },
   data() {
     return {
       isCollapse: false,
-      collapseIcon: 'el-icon-s-fold'
+      collapseIcon: 'el-icon-s-fold',
+      userInfo: JSON.parse(localStorage.getItem("userInfo") || "{}")
     }
   },
   methods: {
@@ -32,7 +33,17 @@ export default {
     },
 
     handleLogout() {
-      this.$router.push('/login')
+      let userId = this.userInfo.id;
+      this.$http.post(`/user/logout/${userId}`).then(res => {
+        if (res.code === '200') {
+          localStorage.removeItem("userInfo")
+          this.$router.push('/login')
+          this.$message.success("已退出登录")
+        } else {
+          this.$message.error(res.msg)
+        }
+      })
+
     }
   }
 
@@ -43,22 +54,22 @@ export default {
   <div style="width: 100%;">
 
     <el-row>
-      <el-col style="width: 40px">
+      <el-col style="width: 2%">
         <i :class="collapseIcon" style="font-size: 25px; height: 44px; line-height: 44px" @click="handleCollapse"></i>
       </el-col>
-      <el-col :span="2">
+      <el-col  style="width: 10%">
         <div style="width: 300px;">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item v-for="item in breadcrumb" :to="item.link" :key="item.text">{{ item.text }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
-      <el-col :span="21">
+      <el-col style="width: 86%">
         <div style="flex: 1; display: flex; align-items: center; justify-content: flex-end">
 
           <el-dropdown placement="bottom">
             <!--              <img src="@/assets/logo.png" alt="" style="width: 40px; height: 40px">-->
-            <span style="font-size: 16px; font-weight: bolder; height: 44px; line-height: 44px">管理员</span>
+            <span style="font-size: 16px; font-weight: bolder; height: 44px; line-height: 44px">{{ userInfo.username }}</span>
 
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="handlePersonalInfo">个人信息</el-dropdown-item>

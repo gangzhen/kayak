@@ -10,9 +10,7 @@ export default {
   data() {
 
     const validateCodeRule = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入验证码'))
-      } else if (value !== this.validCode) {
+      if (value !== this.validCode) {
         callback(new Error('验证码错误'))
       } else {
         callback();
@@ -34,6 +32,7 @@ export default {
           {required: true, message: '请输入密码', trigger: 'blur'},
         ],
         validCode: [
+          {required: true, message: '请输入验证码', trigger: 'blur'},
           {validator: validateCodeRule, trigger: 'submit'},
         ],
       },
@@ -43,11 +42,11 @@ export default {
 
     handleLogin() {
       if (this.ruleLoginForm()) {
-        this.$http.post('/login/login', this.loginForm).then(res => {
+        this.$http.post('/user/login', this.loginForm).then(res => {
           if (res.code === '200') {
             localStorage.setItem('userInfo', JSON.stringify(res.data))
-            this.$router.push('/')
-            this.$message.success('登陆成功')
+            this.$router.push('/points')
+            this.$message.success('登录成功')
           } else {
             this.$message.error(res.msg)
           }
@@ -88,7 +87,8 @@ export default {
         <el-form class="p-login-area-input-form" :model="loginForm" :rules="loginRules" ref="loginForm">
           <div class="p-login-area-input-title">中国网球协会赛事</div>
           <el-form-item prop="idNumber">
-            <el-input v-model="loginForm.idNumber" placeholder="请输入身份证号" prefix-icon="el-icon-postcard"></el-input>
+            <el-input v-model="loginForm.idNumber" placeholder="请输入身份证号"
+                      prefix-icon="el-icon-postcard"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="el-icon-lock"
@@ -104,7 +104,8 @@ export default {
             </div>
           </el-form-item>
           <div style="display: flex; margin-bottom: 10px">
-            <div style="flex: 1; text-align: left">首次登录，请先<span class="p-login-area-input-jump" @click="handleRegister"> 注册 </span>
+            <div style="flex: 1; text-align: left">首次登录，请先<span class="p-login-area-input-jump"
+                                                                      @click="handleRegister">注册</span>
             </div>
             <div style="flex: 1; text-align: right"><span class="p-login-area-input-jump">忘记密码？</span></div>
           </div>
@@ -134,8 +135,9 @@ export default {
   display: flex;
   background-color: white;
   width: 40%;
-  height: 40vh;
+  height: 50vh;
   border-radius: 10px;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
   overflow: hidden;
 }
 
@@ -158,7 +160,7 @@ export default {
 }
 
 .p-login-area-input-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bolder;
   text-align: center;
   margin-top: 10px;

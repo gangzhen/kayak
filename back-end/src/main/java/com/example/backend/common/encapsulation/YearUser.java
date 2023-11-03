@@ -1,4 +1,4 @@
-package com.example.backend.common;
+package com.example.backend.common.encapsulation;
 
 import com.example.backend.entity.UserPoints;
 import lombok.AllArgsConstructor;
