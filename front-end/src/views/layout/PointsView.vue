@@ -100,9 +100,9 @@ export default {
               @change="handleYearChange">
           </el-date-picker>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click.native="onSearch">查询</el-button>
-        </el-form-item>
+        <!--        <el-form-item>-->
+        <!--          <el-button type="primary" @click.native="onSearch">查询</el-button>-->
+        <!--        </el-form-item>-->
       </el-form>
     </div>
 

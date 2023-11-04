@@ -58,6 +58,6 @@ public class TokenUtils {
         long expirationTime = getExpirationTime(token);
         long currentTime = new Date().getTime();
         long timeInterval = (expirationTime - currentTime) / 1000;
-        return timeInterval < 60;
+        return timeInterval < 900;
     }
 }
