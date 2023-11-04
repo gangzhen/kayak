@@ -37,6 +37,7 @@ export default {
       this.$http.post(`/user/logout/${userId}`).then(res => {
         if (res.code === '200') {
           localStorage.removeItem("userInfo")
+          localStorage.removeItem("token")
           this.$router.push('/login')
           this.$message.success("已退出登录")
         } else {

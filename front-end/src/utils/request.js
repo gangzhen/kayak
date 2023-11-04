@@ -1,5 +1,4 @@
 import axios from 'axios'
-import router from "@/router";
 
 const request = axios.create({
     baseURL: process.env.VUE_APP_BASEURL,
@@ -12,7 +11,7 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
 
-    let user = JSON.parse(localStorage.getItem("userInfo") || '{}');
+    const user = JSON.parse(localStorage.getItem("userInfo") || '{}');
     config.headers['token'] = user.token;  // 设置请求头
 
     return config
@@ -24,6 +23,18 @@ request.interceptors.request.use(config => {
 // 可以在接口响应后统一处理结果
 request.interceptors.response.use(
     response => {
+
+        // 获取新的JWT token
+        const newToken = response.headers['x-new-token'];
+        const user = JSON.parse(localStorage.getItem("userInfo") || "{}");
+
+        if (user.token && newToken) {
+            user.token = newToken;
+            // 更新本地存储的JWT token
+            localStorage.setItem('userInfo', JSON.stringify(user));
+            localStorage.setItem('token', newToken);
+        }
+
         let res = response.data;
         // 如果是返回的文件
         if (response.config.responseType === 'blob') {

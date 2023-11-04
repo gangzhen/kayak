@@ -9,6 +9,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.backend.entity.User;
 import com.example.backend.exception.ServiceException;
 import com.example.backend.mapper.UserMapper;
+import com.example.backend.utils.TokenUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -58,10 +59,27 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         try {
             jwtVerifier.verify(token);
+            String newToken = this.refreshToken(token, user);
+            // 将新token放入响应头
+            response.setHeader("X-New-Token", newToken);
+            response.setHeader("Access-Control-Expose-Headers", "X-New-Token");
         } catch (JWTVerificationException e) {
             throw new ServiceException("401", "请登录");
         }
 
         return true;
+    }
+
+
+    private String refreshToken(String token, User user) {
+        boolean flag = TokenUtils.judgeRefreshToken(token);
+        if (flag) {
+            // 生成新的token
+            token = TokenUtils.generateToken(user.getId().toString(), user.getPassword());
+            // 将新token更新入库
+            user.setToken(token);
+            userMapper.updateById(user);
+        }
+        return token;
     }
 }

@@ -126,18 +126,21 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-    let user = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    const user = JSON.parse(localStorage.getItem("userInfo") || "{}");
     const token = user.token; // 从本地存储中获取JWT令牌
     const userRole = user.role; // 从本地存储中获取用户角色
 
-    const publicPaths = ['/', '/login', '/register'];
+    // 未登录用户所有路由默认跳转至以下路由
+    const noCertJumpToPaths = ['/login', '/register'];
+    // 登录用户以下的路由需要跳转至默认页面('/points')
+    const certNeedJumpPaths = ['/', '/login', '/register'];
 
     const authFlag = checkAuth(token);
 
     // 检查用户是否已经登录
     if (!authFlag) {
         // 未登录跳转至公共登录页面
-        if (!publicPaths.includes(to.path)) {
+        if (!noCertJumpToPaths.includes(to.path)) {
             return next('/login');
         }
     }
@@ -163,7 +166,7 @@ router.beforeEach((to, from, next) => {
     }
 
     // 对于已登录的用户访问公共路径，重定向到'/points'
-    if (authFlag && publicPaths.includes(to.path)) {
+    if (authFlag && certNeedJumpPaths.includes(to.path)) {
         return next('/points');
     }
 
