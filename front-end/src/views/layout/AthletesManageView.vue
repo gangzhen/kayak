@@ -180,98 +180,104 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="p-main-area">
 
-    <el-form :inline="true" :model="searchForm">
-      <!--      <el-form-item label="比赛项目:">-->
-      <!--        <el-select v-model="searchForm.item" placeholder="请选择比赛项目" @change="handleItemChange">-->
-      <!--          <el-option label="项目一" value="item1"></el-option>-->
-      <!--          <el-option label="项目二" value="item2"></el-option>-->
-      <!--          <el-option label="项目三" value="item3"></el-option>-->
-      <!--          <el-option label="项目四" value="item4"></el-option>-->
-      <!--        </el-select>-->
-      <!--      </el-form-item>-->
-      <el-form-item>
-        <el-button type="primary" @click.native="onAddDialog">新增</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="p-main-table-search">
+      <el-form :inline="true" :model="searchForm">
+        <!--      <el-form-item label="比赛项目:">-->
+        <!--        <el-select v-model="searchForm.item" placeholder="请选择比赛项目" @change="handleItemChange">-->
+        <!--          <el-option label="项目一" value="item1"></el-option>-->
+        <!--          <el-option label="项目二" value="item2"></el-option>-->
+        <!--          <el-option label="项目三" value="item3"></el-option>-->
+        <!--          <el-option label="项目四" value="item4"></el-option>-->
+        <!--        </el-select>-->
+        <!--      </el-form-item>-->
+        <el-form-item>
+          <el-button type="primary" @click.native="onAddDialog">新增</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
 
 
-    <div class="p-manage">
-      <el-table
-          :data="tableData"
-          style="width: 100%">
-        <el-table-column
-            type="index"
-            label="序号"
-            width="100"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="name"
-            label="姓名"
-            width="200"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="region"
-            label="地区"
-            width="300"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="level"
-            label="级别"
-            width="100"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="totalLevel"
-            label="参赛人数"
-            width="200"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="rankingLevel"
-            label="名次"
-            width="200"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            prop="points"
-            label="积分"
-            width="200"
-            align="center">
-        </el-table-column>
-        <el-table-column
-            label="操作"
-            align="center">
-          <template slot-scope="scope">
-            <el-button
-                size="mini"
-                type="primary"
-                @click.native="onEditDialog(scope.$index, scope.row)">编辑
-            </el-button>
+    <div class="p-main-table">
+      <div class="p-main-table-data">
+        <el-table
+            :data="tableData"
+            style="width: 100%">
+          <el-table-column
+              type="index"
+              label="序号"
+              width="100"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="name"
+              label="姓名"
+              width="200"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="region"
+              label="地区"
+              width="300"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="level"
+              label="级别"
+              width="100"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="totalLevel"
+              label="参赛人数"
+              width="200"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="rankingLevel"
+              label="名次"
+              width="200"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="points"
+              label="积分"
+              width="200"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              label="操作"
+              align="center">
+            <template slot-scope="scope">
+              <el-button
+                  size="mini"
+                  type="primary"
+                  @click.native="onEditDialog(scope.$index, scope.row)">编辑
+              </el-button>
 
-            <el-popconfirm
-                title="确定删除比赛记录吗？"
-                @confirm="onDelete(scope.$index, scope.row)"
-            >
-              <el-button style="margin-left: 5px" size="mini" type="danger" slot="reference">删除</el-button>
-            </el-popconfirm>
-          </template>
-        </el-table-column>
-      </el-table>
+              <el-popconfirm
+                  title="确定删除比赛记录吗？"
+                  @confirm="onDelete(scope.$index, scope.row)"
+              >
+                <el-button style="margin-left: 5px" size="mini" type="danger" slot="reference">删除</el-button>
+              </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
-      <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="page"
-          :page-size="pageSize"
-          :total="totalNum"
-          background
-          layout="prev, pager, next">
-      </el-pagination>
+      <div class="p-main-table-page">
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="page"
+            :page-size="pageSize"
+            :total="totalNum"
+            background
+            layout="prev, pager, next">
+        </el-pagination>
+      </div>
     </div>
 
 
@@ -283,7 +289,7 @@ export default {
         :show-close="false"
         center>
 
-      <el-form class="p-dialog-form" label-width="90px" :model="dialogData" :rules="rules" ref="dialogData">
+      <el-form label-width="90px" :model="dialogData" :rules="rules" ref="dialogData">
         <el-form-item label="姓名:" prop="name">
           <el-input v-model="dialogData.name"></el-input>
         </el-form-item>
@@ -343,12 +349,5 @@ export default {
 </template>
 
 <style scoped>
-
-.p-manage {
-  height: 84vh;
-  margin-top: 1vh;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-  border-radius: 10px;
-}
 
 </style>

@@ -1,12 +1,14 @@
 <script>
 
 export default {
-  name: "ChartsStayView",
+  name: "ChartsEntryView",
   data() {
     return {
-      searchForm: {},
+      searchForm: {
+        item: 'item1'
+      },
       chartXData: ['2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-      chartYData: [10, 52, 200, 334, 390, 330, 220],
+      chartYData: [100, 200, 300, 150, 270, 400, 80],
     }
   },
   created() {
@@ -16,7 +18,7 @@ export default {
 
     onSearch() {
       //TODO 根据条件查询图表数据
-      this.$http.get("/points/stay-chart").then(res => {
+      this.$http.get("/points/entry-chart").then(res => {
         this.chartXData = res.data.xdata;
         this.chartYData = res.data.ydata;
         this.drawChart();
@@ -24,7 +26,7 @@ export default {
     },
 
     drawChart() {
-      var chartDom = document.getElementById('chartsStay');
+      var chartDom = document.getElementById('chartsEntry');
       var myChart = this.$echarts.init(chartDom);
       var option = {
         tooltip: {
@@ -85,27 +87,13 @@ export default {
 </script>
 
 <template>
-  <div>
-    <div class="p-charts">
-      <div class="p-charts-chart" id="chartsStay"></div>
+  <div class="p-main-charts">
+    <div class="p-main-charts-search" v-if="false">
     </div>
+    <div class="p-main-charts-display" id="chartsEntry"></div>
   </div>
 </template>
 
 <style scoped>
 
-.p-charts {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 84vh;
-  margin-top: 1vh;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-  border-radius: 10px;
-}
-
-.p-charts-chart{
-  width: 80%;
-  height: 80vh;
-}
 </style>

@@ -5,7 +5,9 @@ export default {
 </script>
 
 <template>
-  <div>1</div>
+  <div class="p-main-area">
+    1
+  </div>
 </template>
 
 <style scoped>

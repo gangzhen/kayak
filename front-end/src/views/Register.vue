@@ -147,14 +147,16 @@ export default {
 
 <template>
 
-  <div class="p-register">
-    <div class="p-register-area">
-      <div class="p-register-area-img">
+  <div class="p-lr">
+    <div class="p-lr-area">
+
+      <div class="p-lr-area-img">
         <img src="../assets/loginAndRegister.png" alt="" style="width: 100%;">
       </div>
-      <div class="p-register-area-input">
-        <el-form class="p-register-area-input-form" :model="registerForm" :rules="registerRules" ref="registerForm">
-          <div class="p-register-area-input-title">中国网球协会赛事</div>
+
+      <div class="p-lr-area-input">
+        <el-form class="p-lr-area-input-form" :model="registerForm" :rules="registerRules" ref="registerForm">
+          <div class="p-lr-area-input-title">中国网球协会赛事</div>
           <el-form-item prop="username">
             <el-input v-model="registerForm.username" placeholder="请输入姓名" prefix-icon="el-icon-user"></el-input>
           </el-form-item>
@@ -194,14 +196,14 @@ export default {
             <div style="display: flex">
               <el-input v-model="registerForm.validCode" style="flex: 1;" placeholder="请输入验证码"
                         prefix-icon="el-icon-postcard"></el-input>
-              <div class="p-register-area-input-valid">
+              <div class="p-lr-area-input-valid">
                 <ValidCode @update:value="rcValidCode"/>
               </div>
             </div>
           </el-form-item>
 
           <div style="display: flex; margin-bottom: 10px">
-            <div style="flex: 1; text-align: left">已有账号？请<span class="p-register-area-input-jump"
+            <div style="flex: 1; text-align: left">已有账号？请<span class="p-lr-area-input-jump"
                                                                     @click="handleLogin">登录</span>
             </div>
           </div>
@@ -218,62 +220,5 @@ export default {
 </template>
 
 <style scoped>
-
-.p-register {
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #d90718;
-}
-
-.p-register-area {
-  display: flex;
-  background-color: white;
-  width: 40%;
-  height: 50vh;
-  border-radius: 10px;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-  overflow: hidden;
-}
-
-.p-register-area-img {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.p-register-area-input {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.p-register-area-input-form {
-  width: 80%
-}
-
-.p-register-area-input-title {
-  font-size: 24px;
-  font-weight: bolder;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.p-register-area-input-jump {
-  color: #1890ff;
-  cursor: pointer;
-}
-
-.p-register-area-input-valid {
-  flex: 1;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-}
 
 </style>

@@ -17,7 +17,7 @@ export default {
   methods: {
 
     onSearch() {
-      //TODO 根据条件查询图表数据
+      // 查询图表数据
       this.$http.get("/points/entry-rate-chart").then(res => {
         this.chartXData = res.data.xdata;
         this.chartYData = res.data.ydata;
@@ -67,27 +67,13 @@ export default {
 </script>
 
 <template>
-  <div>
-    <div class="p-charts">
-      <div class="p-charts-chart" id="chartsEntryRate"></div>
+  <div class="p-main-charts">
+    <div class="p-main-charts-search" v-if="false">
     </div>
+    <div class="p-main-charts-display" id="chartsEntryRate"></div>
   </div>
 </template>
 
 <style scoped>
 
-.p-charts {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 84vh;
-  margin-top: 1vh;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-  border-radius: 10px;
-}
-
-.p-charts-chart {
-  width: 80%;
-  height: 80vh;
-}
 </style>

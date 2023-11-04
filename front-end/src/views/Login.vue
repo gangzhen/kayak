@@ -78,14 +78,14 @@ export default {
 
 <template>
 
-  <div class="p-login">
-    <div class="p-login-area">
-      <div class="p-login-area-img">
+  <div class="p-lr">
+    <div class="p-lr-area">
+      <div class="p-lr-area-img">
         <img src="../assets/loginAndRegister.png" alt="" style="width: 100%;">
       </div>
-      <div class="p-login-area-input">
-        <el-form class="p-login-area-input-form" :model="loginForm" :rules="loginRules" ref="loginForm">
-          <div class="p-login-area-input-title">中国网球协会赛事</div>
+      <div class="p-lr-area-input">
+        <el-form class="p-lr-area-input-form" :model="loginForm" :rules="loginRules" ref="loginForm">
+          <div class="p-lr-area-input-title">中国网球协会赛事</div>
           <el-form-item prop="idNumber">
             <el-input v-model="loginForm.idNumber" placeholder="请输入身份证号"
                       prefix-icon="el-icon-postcard"></el-input>
@@ -98,16 +98,16 @@ export default {
             <div style="display: flex">
               <el-input v-model="loginForm.validCode" style="flex: 1;" placeholder="请输入验证码"
                         prefix-icon="el-icon-postcard"></el-input>
-              <div class="p-login-area-input-valid">
+              <div class="p-lr-area-input-valid">
                 <ValidCode @update:value="rcValidCode"/>
               </div>
             </div>
           </el-form-item>
           <div style="display: flex; margin-bottom: 10px">
-            <div style="flex: 1; text-align: left">首次登录，请先<span class="p-login-area-input-jump"
+            <div style="flex: 1; text-align: left">首次登录，请先<span class="p-lr-area-input-jump"
                                                                       @click="handleRegister">注册</span>
             </div>
-            <div style="flex: 1; text-align: right"><span class="p-login-area-input-jump">忘记密码？</span></div>
+            <div style="flex: 1; text-align: right"><span class="p-lr-area-input-jump">忘记密码？</span></div>
           </div>
           <el-form-item>
             <el-button type="primary" style="width: 100%" @click.native="handleLogin">登 录</el-button>
@@ -121,62 +121,5 @@ export default {
 </template>
 
 <style scoped>
-
-.p-login {
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #d90718;
-}
-
-.p-login-area {
-  display: flex;
-  background-color: white;
-  width: 40%;
-  height: 50vh;
-  border-radius: 10px;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-  overflow: hidden;
-}
-
-.p-login-area-img {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.p-login-area-input {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.p-login-area-input-form {
-  width: 80%
-}
-
-.p-login-area-input-title {
-  font-size: 24px;
-  font-weight: bolder;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.p-login-area-input-jump {
-  color: #1890ff;
-  cursor: pointer;
-}
-
-.p-login-area-input-valid {
-  flex: 1;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-}
 
 </style>

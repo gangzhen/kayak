@@ -25,11 +25,11 @@ export default {
     },
 
     handlePersonalInfo() {
-      console.log("")
+      this.$router.push('/information')
     },
 
     handleModifyPassword() {
-      console.log("")
+      this.$router.push('/modify-password')
     },
 
     handleLogout() {
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <template>
-  <div style="width: 100%;">
+  <div class="p-header-area">
 
     <el-row>
       <el-col style="width: 2%">
@@ -60,7 +60,7 @@ export default {
       <el-col  style="width: 10%">
         <div style="width: 300px;">
           <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item v-for="item in breadcrumb" :to="item.link" :key="item.text">{{ item.text }}</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="item in breadcrumb" :to="item.to" :key="item.text">{{ item.text }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
@@ -85,5 +85,9 @@ export default {
 </template>
 
 <style scoped>
+
+.p-header-area {
+  width: 100%;
+}
 
 </style>

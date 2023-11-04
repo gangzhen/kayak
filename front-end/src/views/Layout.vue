@@ -40,11 +40,11 @@ export default {
 
       <el-container>
         <!--        头部区域-->
-        <el-header>
+        <el-header class="p-header">
           <Header :breadcrumb="breadcrumb" @cbCollapse:value="rcCollapse"/>
         </el-header>
         <!--        主体区域-->
-        <el-main>
+        <el-main class="p-main">
           <router-view/>
         </el-main>
       </el-container>
@@ -54,10 +54,5 @@ export default {
 </template>
 
 <style scoped>
-
-.p-aside {
-  min-height: 100vh;
-  background-color: #d90718
-}
 
 </style>

@@ -67,27 +67,13 @@ export default {
 </script>
 
 <template>
-  <div>
-    <div class="p-charts">
-      <div class="p-charts-chart" id="chartsStayRate"></div>
+  <div class="p-main-charts">
+    <div class="p-main-charts-search" v-if="false">
     </div>
+    <div class="p-main-charts-display" id="chartsStayRate"></div>
   </div>
 </template>
 
 <style scoped>
 
-.p-charts {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 84vh;
-  margin-top: 1vh;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
-  border-radius: 10px;
-}
-
-.p-charts-chart {
-  width: 80%;
-  height: 80vh;
-}
 </style>

@@ -1,12 +1,14 @@
 <script>
 export default {
-  name: "CompetitionRegistrationView"
+  name: "ModifyPasswordView"
 }
 </script>
 
 <template>
-  <div class="p-main-area">
-    2
+  <div>
+    <div class="p-main-area">
+
+    </div>
   </div>
 </template>
 
