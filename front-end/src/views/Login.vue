@@ -67,7 +67,7 @@ export default {
       this.$refs['loginForm'].validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
-          flag = false;
+          flag = flag && false
         }
       });
       return flag;
@@ -97,7 +97,7 @@ export default {
           <el-form-item prop="validCode">
             <div style="display: flex">
               <el-input v-model="loginForm.validCode" style="flex: 1;" placeholder="请输入验证码"
-                        prefix-icon="el-icon-postcard"></el-input>
+                        prefix-icon="el-icon-circle-check"></el-input>
               <div class="p-lr-area-input-valid">
                 <ValidCode @update:value="rcValidCode"/>
               </div>

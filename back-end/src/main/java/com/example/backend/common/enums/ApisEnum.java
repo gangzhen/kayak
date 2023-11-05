@@ -10,8 +10,11 @@ import lombok.ToString;
 public enum ApisEnum {
 
     USER_LOGIN("/user/login", "登录"),
-    USER_REGISTER("/user/register", "注册"),
     USER_LOGOUT("/user/logout", "退出登录"),
+    USER_REGISTER("/user/register", "注册"),
+    USER_UPDATE("/user/update", "修改"),
+    USER_UPDATE_PWD("/user/update-pwd", "修改密码"),
+    USER_SEARCH("/user/search", "查找"),
     ATHLETE_MANAGE_ADD("/athlete-manage/add", "新增运动员分数记录"),
     ATHLETE_MANAGE_DELETE("/athlete-manage/delete", "删除运动员分数记录"),
     ATHLETE_MANAGE_UPDATE("/athlete-manage/update", "更新运动员分数记录"),

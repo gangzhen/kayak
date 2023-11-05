@@ -136,7 +136,7 @@ export default {
       this.$refs['registerForm'].validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
-          flag = false;
+          flag = flag && false
         }
       });
       return flag;
@@ -195,14 +195,14 @@ export default {
           <el-form-item prop="validCode">
             <div style="display: flex">
               <el-input v-model="registerForm.validCode" style="flex: 1;" placeholder="请输入验证码"
-                        prefix-icon="el-icon-postcard"></el-input>
+                        prefix-icon="el-icon-circle-check"></el-input>
               <div class="p-lr-area-input-valid">
                 <ValidCode @update:value="rcValidCode"/>
               </div>
             </div>
           </el-form-item>
 
-          <div style="display: flex; margin-bottom: 10px">
+          <div style="display: flex; margin-bottom: 10px;">
             <div style="flex: 1; text-align: left">已有账号？请<span class="p-lr-area-input-jump"
                                                                     @click="handleLogin">登录</span>
             </div>

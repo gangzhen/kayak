@@ -60,7 +60,7 @@ export default {
       this.$refs['dialogData'].validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
-          flag = false;
+          flag = flag && false
         }
       });
       return flag;
@@ -125,10 +125,7 @@ export default {
       //TODO 校验数据字段
       this.$http.post("/athlete-manage/add", this.dialogData).then(res => {
         if (res.code === "200") {
-          this.$message({
-            message: '添加成功',
-            type: 'success'
-          });
+          this.$message.success('添加成功');
         }
       })
     },
@@ -138,10 +135,7 @@ export default {
       //TODO 校验数据字段
       this.$http.put("/athlete-manage/update", this.dialogData).then(res => {
         if (res.code === "200") {
-          this.$message({
-            message: '更新成功',
-            type: 'success'
-          });
+          this.$message.success('更新成功');
         }
       })
     },
@@ -150,10 +144,7 @@ export default {
       // 根据唯一ID删除库数据
       this.$http.delete(`/athlete-manage/delete/${id}`).then(res => {
         if (res.code === "200") {
-          this.$message({
-            message: '删除成功',
-            type: 'success'
-          });
+          this.$message.success('删除成功');
         }
       })
     },

@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.backend.common.enums.RoleEnum;
+import com.example.backend.controller.request.PwdRequest;
 import com.example.backend.controller.request.UserRequest;
 import com.example.backend.entity.User;
 import com.example.backend.exception.ServiceException;
@@ -71,6 +73,11 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             throw new ServiceException("账户已注册");
         }
 
+        //TODO 没有权限管理，故此处在注册时不能注册管理员用户
+        if (RoleEnum.ADMIN.getCode().equals(userItem.getRole())) {
+            throw new ServiceException("不能注册管理员账户");
+        }
+
         User user = new User();
         BeanUtils.copyProperties(userItem, user);
         user.setYear(year);
@@ -88,15 +95,15 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             throw new ServiceException("注册信息有空值");
         }
 
-        if (!checkUsername(userItem.getUsername())) {
+        if (checkUsername(userItem.getUsername())) {
             throw new ServiceException("姓名格式有误");
         }
 
-        if (!checkIdNumber(userItem.getIdNumber())) {
+        if (checkIdNumber(userItem.getIdNumber())) {
             throw new ServiceException("身份证号格式有误");
         }
 
-        if (!checkPassword(userItem.getPassword())) {
+        if (checkPassword(userItem.getPassword())) {
             throw new ServiceException("密码格式有误");
         }
 
@@ -104,7 +111,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             throw new ServiceException("两次输入密码不一致");
         }
 
-        if (!checkPhoneNumber(userItem.getPhoneNumber())) {
+        if (checkPhoneNumber(userItem.getPhoneNumber())) {
             throw new ServiceException("手机号格式有误");
         }
     }
@@ -112,25 +119,25 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     private boolean checkUsername(String username) {
         Pattern regexPattern = Pattern.compile(USER_NAME_PATTERN);
         Matcher matcher = regexPattern.matcher(username);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
     private boolean checkIdNumber(String idNumber) {
         Pattern regexPattern = Pattern.compile(ID_NUM_PATTERN);
         Matcher matcher = regexPattern.matcher(idNumber);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
     private boolean checkPassword(String password) {
         Pattern regexPattern = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = regexPattern.matcher(password);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
     private boolean checkPhoneNumber(String phoneNumber) {
         Pattern regexPattern = Pattern.compile(PHONE_NUM_PATTERN);
         Matcher matcher = regexPattern.matcher(phoneNumber);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
     public void logout(Integer userId) {
@@ -139,4 +146,109 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         userUpdateWrapper.set("token", null);
         update(userUpdateWrapper);
     }
+
+    public User update(UserRequest userItem) {
+
+        // 校验提交修改的用户信息符合规范
+        checkUpdateInfo(userItem);
+
+
+        User queryUser = userMapper.selectById(userItem.getId());
+        // 校验用户操作是否合法 不合法抛异常
+        checkUserOperationLegal(queryUser, userItem);
+
+        // 更新用户
+        BeanUtils.copyProperties(userItem, queryUser);
+        updateById(queryUser);
+
+        // 置空密码
+        queryUser.setPassword(null);
+        return queryUser;
+    }
+
+    private void checkUpdateInfo(UserRequest userItem) {
+
+        if (StrUtil.isBlank(userItem.getUsername()) || StrUtil.isBlank(userItem.getPassword()) || StrUtil.isBlank(userItem.getIdNumber()) || StrUtil.isBlank(userItem.getPhoneNumber()) || StrUtil.isBlank(userItem.getRole())) {
+            throw new ServiceException("修改信息有空值");
+        }
+
+        if (checkUsername(userItem.getUsername())) {
+            throw new ServiceException("姓名格式有误");
+        }
+
+        if (checkIdNumber(userItem.getIdNumber())) {
+            throw new ServiceException("身份证号格式有误");
+        }
+
+        if (checkPhoneNumber(userItem.getPhoneNumber())) {
+            throw new ServiceException("手机号格式有误");
+        }
+    }
+
+    private void checkUserOperationLegal(User queryUser, UserRequest userItem) {
+
+        if (queryUser == null) {
+            throw new ServiceException("非法修改信息");
+        }
+
+        if (!queryUser.getPassword().equals(userItem.getPassword())) {
+            throw new ServiceException("用户名或密码错误");
+        }
+
+        // 非法提权抛异常 （更新提交需要修改的信息是不是管理员，是管理员后对比数据库中的用户信息是不是管理员，相同可更新，不相同拒绝更新）
+        if(RoleEnum.ADMIN.getCode().equals(userItem.getRole()) && !RoleEnum.ADMIN.getCode().equals(queryUser.getRole())) {
+            throw new ServiceException("非法修改信息");
+        }
+    }
+
+    public User search(Integer userId) {
+        User queryUser = userMapper.selectById(userId);
+        // 置空密码
+        queryUser.setPassword(null);
+        return queryUser;
+    }
+
+    public void updatePwd(PwdRequest pwdItem) {
+
+        // 校验提交修改的用户密码是否符合规范
+        checkUpdatePwd(pwdItem);
+
+
+        User queryUser = userMapper.selectById(pwdItem.getId());
+        // 校验用户操作是否合法 不合法抛异常
+        checkUserPwdConsistent(queryUser, pwdItem);
+
+        // 更新用户密码并登出用户清除token
+        queryUser.setPassword(pwdItem.getNewPwd());
+        updateById(queryUser);
+        this.logout(queryUser.getId());
+    }
+
+    private void checkUpdatePwd(PwdRequest pwdItem) {
+
+        if (StrUtil.isBlank(pwdItem.getId()) ||StrUtil.isBlank(pwdItem.getId()) ||StrUtil.isBlank(pwdItem.getId()) ||StrUtil.isBlank(pwdItem.getId())) {
+            throw new ServiceException("修改密码有空值");
+        }
+
+        if (checkPassword(pwdItem.getNewPwd())) {
+            throw new ServiceException("密码格式有误");
+        }
+
+        if (!StrUtil.equals(pwdItem.getNewPwd(), pwdItem.getConfirmPwd())) {
+            throw new ServiceException("两次输入密码不一致");
+        }
+    }
+
+    private void checkUserPwdConsistent(User queryUser, PwdRequest pwdItem) {
+
+        if (queryUser == null) {
+            throw new ServiceException("非法修改");
+        }
+
+        if (!queryUser.getPassword().equals(pwdItem.getOldPwd())) {
+            throw new ServiceException("用户名或密码错误");
+        }
+
+    }
+
 }

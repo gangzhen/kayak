@@ -131,7 +131,6 @@ export default {
 }
 
 .logo-title {
-  font-weight: bold;
   height: 40px;
   line-height: 40px;
   font-size: 18px;

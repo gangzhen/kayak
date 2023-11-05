@@ -2,10 +2,9 @@ package com.example.backend.controller.request;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class UserRequest {
+    private Integer id;
     private String username;
     private String idNumber;
     private String password;

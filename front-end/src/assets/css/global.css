@@ -7,13 +7,19 @@
 body {
     color: #333;
     font-size: 14px;
+    /* 全局字体样式 */
+    font-weight: bold;
     margin: 0;
     padding: 0;
 }
 
 /* form */
 .el-form-item {
-    font-weight: bolder;
+    font-weight: bold;
+}
+
+.el-form-item .el-input__inner {
+    font-weight: bold;
 }
 
 /* breadcrumb */
