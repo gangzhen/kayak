@@ -31,7 +31,7 @@ public class TokenUtils {
 
     public static String generateToken(String userId, String sign) {
         return JWT.create().withAudience(userId)
-                .withExpiresAt(DateUtil.offsetMinute(new Date(), 1))
+                .withExpiresAt(DateUtil.offsetMinute(new Date(), 30))
                 .sign(Algorithm.HMAC256(sign));
     }
 
@@ -58,6 +58,6 @@ public class TokenUtils {
         long expirationTime = getExpirationTime(token);
         long currentTime = new Date().getTime();
         long timeInterval = (expirationTime - currentTime) / 1000;
-        return timeInterval < 1;
+        return timeInterval < 900;
     }
 }
