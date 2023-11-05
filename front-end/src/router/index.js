@@ -156,11 +156,11 @@ router.beforeEach((to, from, next) => {
     const requiredPermission = rolePermissions[userRole];
 
     // 处理未匹配的路由
-    if (to.matched.length === 0) {
+    if (authFlag && to.matched.length === 0) {
         return next('/404');
     }
 
-    if (requiredPermission && !to.matched.some(record => record.meta[requiredPermission])) {
+    if (authFlag && requiredPermission && !to.matched.some(record => record.meta[requiredPermission])) {
         // 用户没有足够的权限访问目标页面 重定向到其他页面或添加错误消息
         return next('/403');
     }
@@ -176,7 +176,7 @@ router.beforeEach((to, from, next) => {
     }
 
     // 用户已登录且具有足够的权限
-    next();
+    return next();
 });
 
 
