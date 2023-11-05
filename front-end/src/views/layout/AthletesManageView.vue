@@ -70,7 +70,7 @@ export default {
       // 使用page和pageSize分页查询
       this.searchForm["page"] = this.page;
       this.searchForm["pageSize"] = this.pageSize;
-      this.$http.post("/points/search", this.searchForm).then(res => {
+      this.$http.post("/athlete-manage/search", this.searchForm).then(res => {
         this.tableData = res.data.records
         this.totalNum = res.data.total
       })
@@ -123,7 +123,7 @@ export default {
 
     handleAdd() {
       //TODO 校验数据字段
-      this.$http.post("/points/add", this.dialogData).then(res => {
+      this.$http.post("/athlete-manage/add", this.dialogData).then(res => {
         if (res.code === "200") {
           this.$message({
             message: '添加成功',
@@ -136,7 +136,7 @@ export default {
     handleEdit(row) {
       // this.dialogData更新入库
       //TODO 校验数据字段
-      this.$http.put("/points/update", this.dialogData).then(res => {
+      this.$http.put("/athlete-manage/update", this.dialogData).then(res => {
         if (res.code === "200") {
           this.$message({
             message: '更新成功',
@@ -148,7 +148,7 @@ export default {
 
     handleDelete(id) {
       // 根据唯一ID删除库数据
-      this.$http.delete(`/points/delete/${id}`).then(res => {
+      this.$http.delete(`/athlete-manage/delete/${id}`).then(res => {
         if (res.code === "200") {
           this.$message({
             message: '删除成功',

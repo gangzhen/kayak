@@ -18,7 +18,7 @@ export default {
 
     onSearch() {
       //TODO 根据条件查询图表数据
-      this.$http.get("/points/entry-chart").then(res => {
+      this.$http.get("/charts/entry").then(res => {
         this.chartXData = res.data.xdata;
         this.chartYData = res.data.ydata;
         this.drawChart();

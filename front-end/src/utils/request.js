@@ -25,10 +25,12 @@ request.interceptors.response.use(
     response => {
 
         // 获取新的JWT token
+        const newRole = response.headers['x-new-role'];
         const newToken = response.headers['x-new-token'];
         const user = JSON.parse(localStorage.getItem("userInfo") || "{}");
 
         if (user.token && newToken) {
+            user.role = newRole;
             user.token = newToken;
             // 更新本地存储的JWT token
             localStorage.setItem('userInfo', JSON.stringify(user));

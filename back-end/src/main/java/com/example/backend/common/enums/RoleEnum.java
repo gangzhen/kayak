@@ -21,7 +21,7 @@ public enum RoleEnum {
     /**
      * 角色
      */
-    private final String totalCode;
+    private final String role;
     /**
      * 角色权限
      */

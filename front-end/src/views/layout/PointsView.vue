@@ -26,7 +26,7 @@ export default {
       // 使用page和pageSize分页查询
       this.searchForm["page"] = this.page;
       this.searchForm["pageSize"] = this.pageSize;
-      this.$http.post("/points/search-rank", this.searchForm).then(res => {
+      this.$http.post("/points-rank/search", this.searchForm).then(res => {
         this.tableData = res.data.records
         this.totalNum = res.data.total
       })
