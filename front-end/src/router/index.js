@@ -14,19 +14,19 @@ const routes = [
             {
                 path: 'points',
                 name: 'points',
-                component: () => import('@/views/layout/PointsView.vue'),
+                component: () => import('@/views/layout/menu/PointsView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '积分排名',},
             },
             {
                 path: 'charts',
                 name: 'charts',
-                component: () => import('@/views/layout/ChartsView.vue'),
+                component: () => import('@/views/layout/menu/ChartsView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '图表展示',},
                 children: [
                     {
                         path: 'stay',
                         name: 'stay',
-                        component: () => import('@/views/layout/charts/ChartsStayView.vue'),
+                        component: () => import('@/views/layout/menu/charts/ChartsStayView.vue'),
                         meta: {
                             requiresAdmin: true,
                             requiresAthlete: true,
@@ -37,13 +37,13 @@ const routes = [
                     {
                         path: 'stay-rate',
                         name: 'stay-rate',
-                        component: () => import('@/views/layout/charts/ChartsStayRateView.vue'),
+                        component: () => import('@/views/layout/menu/charts/ChartsStayRateView.vue'),
                         meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '留榜率',},
                     },
                     {
                         path: 'entry',
                         name: 'entry',
-                        component: () => import('@/views/layout/charts/ChartsEntryView.vue'),
+                        component: () => import('@/views/layout/menu/charts/ChartsEntryView.vue'),
                         meta: {
                             requiresAdmin: true,
                             requiresAthlete: true,
@@ -54,7 +54,7 @@ const routes = [
                     {
                         path: 'entry-rate',
                         name: 'entry-rate',
-                        component: () => import('@/views/layout/charts/ChartsEntryRateView.vue'),
+                        component: () => import('@/views/layout/menu/charts/ChartsEntryRateView.vue'),
                         meta: {
                             requiresAdmin: true,
                             requiresAthlete: true,
@@ -67,49 +67,49 @@ const routes = [
             {
                 path: 'regional-competition',
                 name: 'regional-competition',
-                component: () => import('@/views/layout/RegionalCompetitionView.vue'),
+                component: () => import('@/views/layout/menu/RegionalCompetitionView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '地区赛事',},
             },
             {
                 path: 'competition-registration',
                 name: 'competition-registration',
-                component: () => import('@/views/layout/CompetitionRegistrationView.vue'),
+                component: () => import('@/views/layout/menu/CompetitionRegistrationView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: false, breadcrumb: '单项比赛报名',},
             },
             {
                 path: 'coaches-management',
                 name: 'coaches-management',
-                component: () => import('@/views/layout/CoachesManageView.vue'),
+                component: () => import('@/views/layout/menu/CoachesManageView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '教练员列表',},
             },
             {
                 path: 'athletes-management',
                 name: 'athletes-management',
-                component: () => import('@/views/layout/AthletesManageView.vue'),
+                component: () => import('@/views/layout/menu/AthletesManageView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: false, requiresCoach: false, breadcrumb: '运动员管理',},
             },
             {
                 path: 'information',
                 name: 'information',
-                component: () => import('@/views/layout/UserInformationView.vue'),
+                component: () => import('@/views/layout/info/UserInformationView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '个人信息',},
             },
             {
                 path: 'modify-password',
                 name: 'modify-password',
-                component: () => import('@/views/layout/ModifyPasswordView.vue'),
+                component: () => import('@/views/layout/info/ModifyPasswordView.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '修改密码',},
             },
             {
                 path: '403',
                 name: '403',
-                component: () => import('@/views/layout/Error403View.vue'),
+                component: () => import('@/views/layout/error/Error403View.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '403',},
             },
             {
                 path: '404',
                 name: '404',
-                component: () => import('@/views/layout/Error404View.vue'),
+                component: () => import('@/views/layout/error/Error404View.vue'),
                 meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '404',},
             },
         ]
