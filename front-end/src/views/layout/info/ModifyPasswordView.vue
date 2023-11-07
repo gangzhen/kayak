@@ -30,7 +30,7 @@ export default {
         confirmPwd: ''
       },
       dialogVisible: false,
-      pwdRule: {
+      pwdRules: {
         oldPwd: [
           {required: true, message: '请输入旧密码', trigger: 'blur'},
         ],
@@ -53,7 +53,7 @@ export default {
 
     ruleModifiedPwd() {
       let flag = true;
-      this.$refs['userPwd'].validate((valid) => {
+      this.$refs.userPwdRef.validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
           flag = flag && false
@@ -90,7 +90,7 @@ export default {
 <template>
   <div class="p-main-area">
     <div class="p-pwd">
-      <el-form class="p-pwd-form" :model="userPwd" ref="userPwd" :rules="pwdRule">
+      <el-form class="p-pwd-form" :model="userPwd" :rules="pwdRules" ref="userPwdRef">
         <div class="p-pwd-form-title">修改密码</div>
         <el-form-item prop="oldPwd">
           <el-input v-model="userPwd.oldPwd" placeholder="请输入旧密码" prefix-icon="el-icon-unlock"

@@ -8,7 +8,7 @@ export default {
     return {
       dialogVisible: false,
       userInfo: {},
-      modifyRule: {},
+      competitionRules: {},
     }
   },
   methods: {
@@ -35,7 +35,7 @@ export default {
 <template>
   <div class="p-main-area">
     <div class="p-info">
-      <el-form class="p-info-form" :model="userInfo" ref="userInfo" :rules="modifyRule">
+      <el-form class="p-info-form" :model="userInfo" :rules="competitionRules" ref="competitionRef">
         <div class="p-info-form-title">单项比赛报名</div>
         <el-form-item prop="username">
           <el-input v-model="userInfo.username" placeholder="请输入姓名" prefix-icon="el-icon-user"></el-input>
@@ -60,8 +60,11 @@ export default {
                   <i class="el-icon-user-solid"></i>
                 </span>
             </template>
-            <el-option label="运动员" value="athlete"></el-option>
-            <el-option label="教练员" value="coach"></el-option>
+            <el-option v-for="option in $roleOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
           <el-select v-model="userInfo.role" v-if="userInfo.role === 'admin'" placeholder="请选择角色" style="width: 100%" :disabled="true">
             <template #prefix>
@@ -69,7 +72,11 @@ export default {
                   <i class="el-icon-user-solid"></i>
                 </span>
             </template>
-            <el-option label="管理员" value="admin"></el-option>
+            <el-option v-for="option in $adminRoleOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item>

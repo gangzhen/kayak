@@ -133,7 +133,7 @@ export default {
 
     ruleRegisterForm() {
       let flag = true;
-      this.$refs['registerForm'].validate((valid) => {
+      this.$refs.registerFormRef.validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
           flag = flag && false
@@ -155,7 +155,7 @@ export default {
       </div>
 
       <div class="p-lr-area-input">
-        <el-form class="p-lr-area-input-form" :model="registerForm" :rules="registerRules" ref="registerForm">
+        <el-form class="p-lr-area-input-form" :model="registerForm" :rules="registerRules" ref="registerFormRef">
           <div class="p-lr-area-input-title">中国网球协会赛事</div>
           <el-form-item prop="username">
             <el-input v-model="registerForm.username" placeholder="请输入姓名" prefix-icon="el-icon-user"></el-input>
@@ -188,8 +188,11 @@ export default {
                   <i class="el-icon-user-solid"></i>
                 </span>
               </template>
-              <el-option label="运动员" value="athlete"></el-option>
-              <el-option label="教练员" value="coach"></el-option>
+              <el-option v-for="option in $roleOptions"
+                         :key="option.value"
+                         :label="option.label"
+                         :value="option.value">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item prop="validCode">

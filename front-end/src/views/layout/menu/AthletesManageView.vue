@@ -22,7 +22,7 @@ export default {
       },
       searchForm: {},
       tableData: [],
-      rules: {
+      athleteRules: {
         name: [
           {required: true, message: '请输入姓名', trigger: 'blur'},
         ],
@@ -57,7 +57,7 @@ export default {
 
     ruleFormData() {
       let flag = true;
-      this.$refs['dialogData'].validate((valid) => {
+      this.$refs.athleteDialogDataRef.validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
           flag = flag && false
@@ -106,7 +106,7 @@ export default {
       this.dialogVisible = false;
       this.dialogTitle = '';
       this.dialogData = {};
-      this.$refs['dialogData'].resetFields();
+      this.$refs.athleteDialogDataRef.resetFields();
       this.onSearch();
     },
 
@@ -118,7 +118,6 @@ export default {
           this.handleEdit();
         }
       }
-      this.handleCancel();
     },
 
     handleAdd() {
@@ -126,16 +125,18 @@ export default {
       this.$http.post("/athlete-manage/add", this.dialogData).then(res => {
         if (res.code === "200") {
           this.$message.success('添加成功');
+          this.handleCancel();
         }
       })
     },
 
-    handleEdit(row) {
+    handleEdit() {
       // this.dialogData更新入库
       //TODO 校验数据字段
       this.$http.put("/athlete-manage/update", this.dialogData).then(res => {
         if (res.code === "200") {
           this.$message.success('更新成功');
+          this.handleCancel();
         }
       })
     },
@@ -210,35 +211,35 @@ export default {
           <el-table-column
               prop="region"
               label="地区"
-              width="300"
               align="center">
           </el-table-column>
           <el-table-column
               prop="level"
               label="级别"
-              width="100"
+              width="150"
               align="center">
           </el-table-column>
           <el-table-column
               prop="totalLevel"
               label="参赛人数"
-              width="200"
+              width="150"
               align="center">
           </el-table-column>
           <el-table-column
               prop="rankingLevel"
               label="名次"
-              width="200"
+              width="150"
               align="center">
           </el-table-column>
           <el-table-column
               prop="points"
               label="积分"
-              width="200"
+              width="150"
               align="center">
           </el-table-column>
           <el-table-column
               label="操作"
+              width="250"
               align="center">
             <template slot-scope="scope">
               <el-button
@@ -280,7 +281,7 @@ export default {
         :show-close="false"
         center>
 
-      <el-form label-width="90px" :model="dialogData" :rules="rules" ref="dialogData">
+      <el-form label-width="90px" :model="dialogData" :rules="athleteRules" ref="athleteDialogDataRef">
         <el-form-item label="姓名:" prop="name">
           <el-input v-model="dialogData.name"></el-input>
         </el-form-item>
@@ -289,8 +290,11 @@ export default {
         </el-form-item>
         <el-form-item label="性别:" prop="gender">
           <el-select v-model="dialogData.gender" placeholder="请选择性别">
-            <el-option label="男" value="male"></el-option>
-            <el-option label="女" value="female"></el-option>
+            <el-option v-for="option in $genderOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="身份证号:" prop="idNumber">
@@ -301,32 +305,29 @@ export default {
         </el-form-item>
         <el-form-item label="级别:" prop="level">
           <el-select v-model="dialogData.level" placeholder="请选择比赛项目">
-            <el-option label="A2000" value="A2000"></el-option>
-            <el-option label="A1600" value="A1600"></el-option>
-            <el-option label="A1200" value="A1200"></el-option>
-            <el-option label="A900" value="A900"></el-option>
-            <el-option label="B800" value="B800"></el-option>
-            <el-option label="B600" value="B600"></el-option>
-            <el-option label="B500" value="B500"></el-option>
-            <el-option label="C400" value="C400"></el-option>
-            <el-option label="C200" value="C200"></el-option>
-            <el-option label="C100" value="C100"></el-option>
+            <el-option v-for="option in $levelOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="参赛人数:" prop="totalCode">
           <el-select v-model="dialogData.totalCode" placeholder="请选择参赛人数">
-            <el-option label="32名以下 (<32)" value="1"></el-option>
-            <el-option label="32名以上 (≥32)" value="2"></el-option>
+            <el-option v-for="option in $totalCodeOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="名次:" prop="rankingCode">
           <el-select v-model="dialogData.rankingCode" placeholder="请选择名次">
-            <el-option label="冠军" value="1"></el-option>
-            <el-option label="亚军" value="2"></el-option>
-            <el-option label="半决赛" value="3"></el-option>
-            <el-option label="前8名" value="4"></el-option>
-            <el-option label="前16名" value="5"></el-option>
-            <el-option v-show="dialogData.totalCode === '2'" label="前32名" value="6"></el-option>
+            <el-option v-for="option in $rankingCodeOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>

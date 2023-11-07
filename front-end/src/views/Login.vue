@@ -69,7 +69,7 @@ export default {
 
     ruleLoginForm() {
       let flag = true;
-      this.$refs['loginForm'].validate((valid) => {
+      this.$refs.loginFormRef.validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
           flag = flag && false
@@ -89,7 +89,7 @@ export default {
         <img src="../assets/loginAndRegister.png" alt="" style="width: 100%;">
       </div>
       <div class="p-lr-area-input">
-        <el-form class="p-lr-area-input-form" :model="loginForm" :rules="loginRules" ref="loginForm">
+        <el-form class="p-lr-area-input-form" :model="loginForm" :rules="loginRules" ref="loginFormRef">
           <div class="p-lr-area-input-title">中国网球协会赛事</div>
           <el-form-item prop="idNumber">
             <el-input v-model="loginForm.idNumber" placeholder="请输入身份证号"

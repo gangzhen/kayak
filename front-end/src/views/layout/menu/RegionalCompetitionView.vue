@@ -3,12 +3,21 @@ export default {
   name: "RegionalCompetitionView",
   data() {
     return {
-      searchForm: {},
-      tableData: [],
+      searchForm: {
+        region: '',
+      },
+      tableData: [
+        {
+          competition: 'A1000',
+          level: 'A1000',
+          region: 'region1',
+          year: '2023',
+        }
+      ],
       dialogTitle: '',
       dialogVisible: false,
       dialogData: {},
-      rules: {},
+      competitionRules: {},
       page: 1,
       pageSize: 10,
       totalNum: 10,
@@ -16,24 +25,76 @@ export default {
   },
   methods: {
 
-    onAddDialog() {
+    onSearch() {
       console.log(1)
+      //TODO 后端接口调用
     },
 
-    handleCancel() {
-      console.log(1)
+    handleRegionChange() {
+      console.log(this.searchForm.region)
+      this.onSearch();
+    },
+
+    onAddDialog() {
+      this.dialogTitle = '新增'
+      this.dialogVisible = true
+    },
+
+    onEditDialog(index, row) {
+      this.dialogData = {
+        competition: row.competition,
+        level: row.level,
+        region: row.region,
+        year: row.year,
+      }
+      this.dialogTitle = '编辑'
+      this.dialogVisible = true
     },
 
     handleAddOrEdit() {
+      if (this.ruleFormData()) {
+        if (this.dialogTitle === '新 增') {
+          this.handleAdd();
+        } else if (this.dialogTitle === '编 辑') {
+          this.handleEdit();
+        }
+      }
+    },
+
+    handleAdd() {
+      //TODO 调用后端接口
+      console.log(1)
+      this.handleCancel();
+    },
+
+    handleEdit() {
+      //TODO 调用后端接口
+      console.log(1)
+      this.handleCancel();
+    },
+
+    handleCancel() {
+      this.dialogVisible = false;
+      this.dialogTitle = '';
+      this.dialogData = {};
+      this.$refs.competitionDialogDataRef.resetFields();
+      this.onSearch();
+    },
+
+    onDelete(index, row) {
       console.log(1)
     },
 
-    handleSizeChange() {
-      console.log(1)
+    handleSizeChange(val) {
+      this.pageSize = val;
+      console.log(`每页 ${val} 条`);
+      this.onSearch();
     },
 
-    handleCurrentChange() {
-      console.log(1)
+    handleCurrentChange(val) {
+      this.page = val;
+      console.log(`当前页: ${val}`);
+      this.onSearch();
     },
 
   }
@@ -45,14 +106,15 @@ export default {
 
     <div class="p-main-table-search">
       <el-form :inline="true" :model="searchForm">
-        <!--      <el-form-item label="比赛项目:">-->
-        <!--        <el-select v-model="searchForm.item" placeholder="请选择比赛项目" @change="handleItemChange">-->
-        <!--          <el-option label="项目一" value="item1"></el-option>-->
-        <!--          <el-option label="项目二" value="item2"></el-option>-->
-        <!--          <el-option label="项目三" value="item3"></el-option>-->
-        <!--          <el-option label="项目四" value="item4"></el-option>-->
-        <!--        </el-select>-->
-        <!--      </el-form-item>-->
+        <el-form-item label="地区:">
+          <el-select v-model="searchForm.region" placeholder="请选择赛事地区" @change="handleRegionChange">
+            <el-option v-for="option in $regionOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click.native="onAddDialog">新增</el-button>
         </el-form-item>
@@ -72,43 +134,28 @@ export default {
               align="center">
           </el-table-column>
           <el-table-column
-              prop="name"
-              label="姓名"
-              width="200"
+              prop="competition"
+              label="赛事"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="level"
+              label="赛事级别"
               align="center">
           </el-table-column>
           <el-table-column
               prop="region"
               label="地区"
-              width="300"
               align="center">
           </el-table-column>
           <el-table-column
-              prop="level"
-              label="级别"
-              width="100"
-              align="center">
-          </el-table-column>
-          <el-table-column
-              prop="totalLevel"
-              label="参赛人数"
-              width="200"
-              align="center">
-          </el-table-column>
-          <el-table-column
-              prop="rankingLevel"
-              label="名次"
-              width="200"
-              align="center">
-          </el-table-column>
-          <el-table-column
-              prop="points"
-              label="积分"
-              width="200"
+              prop="year"
+              label="年份"
               align="center">
           </el-table-column>
           <el-table-column
               label="操作"
+              width="250"
               align="center">
             <template slot-scope="scope">
               <el-button
@@ -150,54 +197,35 @@ export default {
         :show-close="false"
         center>
 
-      <el-form label-width="90px" :model="dialogData" :rules="rules" ref="dialogData">
-        <el-form-item label="姓名:" prop="name">
-          <el-input v-model="dialogData.name"></el-input>
+      <el-form label-width="90px" :model="dialogData" :rules="competitionRules" ref="competitionDialogDataRef">
+        <el-form-item label="赛事:" prop="name">
+          <el-input v-model="dialogData.competition"></el-input>
         </el-form-item>
-        <el-form-item label="年龄:" prop="age">
-          <el-input v-model="dialogData.age"></el-input>
-        </el-form-item>
-        <el-form-item label="性别:" prop="gender">
-          <el-select v-model="dialogData.gender" placeholder="请选择性别">
-            <el-option label="男" value="male"></el-option>
-            <el-option label="女" value="female"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="身份证号:" prop="idNumber">
-          <el-input v-model="dialogData.idNumber"></el-input>
-        </el-form-item>
-        <el-form-item label="地区:" prop="region">
-          <el-input v-model="dialogData.region"></el-input>
-        </el-form-item>
-        <el-form-item label="级别:" prop="level">
+        <el-form-item label="赛事级别:" prop="level">
           <el-select v-model="dialogData.level" placeholder="请选择比赛项目">
-            <el-option label="A2000" value="A2000"></el-option>
-            <el-option label="A1600" value="A1600"></el-option>
-            <el-option label="A1200" value="A1200"></el-option>
-            <el-option label="A900" value="A900"></el-option>
-            <el-option label="B800" value="B800"></el-option>
-            <el-option label="B600" value="B600"></el-option>
-            <el-option label="B500" value="B500"></el-option>
-            <el-option label="C400" value="C400"></el-option>
-            <el-option label="C200" value="C200"></el-option>
-            <el-option label="C100" value="C100"></el-option>
+            <el-option v-for="option in $levelOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="参赛人数:" prop="totalCode">
-          <el-select v-model="dialogData.totalCode" placeholder="请选择参赛人数">
-            <el-option label="32名以下 (<32)" value="1"></el-option>
-            <el-option label="32名以上 (≥32)" value="2"></el-option>
+        <el-form-item label="地区:">
+          <el-select v-model="dialogData.region" placeholder="请选择赛事地区" @change="handleRegionChange">
+            <el-option v-for="option in $regionOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="名次:" prop="rankingCode">
-          <el-select v-model="dialogData.rankingCode" placeholder="请选择名次">
-            <el-option label="冠军" value="1"></el-option>
-            <el-option label="亚军" value="2"></el-option>
-            <el-option label="半决赛" value="3"></el-option>
-            <el-option label="前8名" value="4"></el-option>
-            <el-option label="前16名" value="5"></el-option>
-            <el-option v-show="dialogData.totalCode === '2'" label="前32名" value="6"></el-option>
-          </el-select>
+        <el-form-item label="年份:">
+          <el-date-picker
+              v-model="dialogData.year"
+              type="year"
+              value-format="yyyy"
+              placeholder="选择年份">
+          </el-date-picker>
         </el-form-item>
       </el-form>
 

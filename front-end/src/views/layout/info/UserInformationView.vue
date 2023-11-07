@@ -63,7 +63,7 @@ export default {
       userInfo: {},
       validCode: '',
       dialogVisible: false,
-      modifyRule: {
+      infoRules: {
         username: [
           {validator: usernameRule, trigger: 'submit'},
         ],
@@ -94,13 +94,13 @@ export default {
 
     // 调用子组件的刷新方法
     refreshValidCode() {
-      this.$refs.validCodeRef.refreshIdentifyCode();
+      this.$refs.userInfoValidCodeRef.refreshIdentifyCode();
     },
 
     // 信息修改校验规则
     ruleModifiedInfo() {
       let flag = true;
-      this.$refs['userInfo'].validate((valid) => {
+      this.$refs.userInfoRef.validate((valid) => {
         if (!valid) {
           console.log('规则校验失败');
           flag = flag && false
@@ -165,7 +165,7 @@ export default {
 <template>
   <div class="p-main-area">
     <div class="p-info">
-      <el-form class="p-info-form" :model="userInfo" ref="userInfo" :rules="modifyRule">
+      <el-form class="p-info-form" :model="userInfo" :rules="infoRules" ref="userInfoRef">
         <div class="p-info-form-title">个人信息</div>
         <el-form-item prop="username">
           <el-input v-model="userInfo.username" placeholder="请输入姓名" prefix-icon="el-icon-user"></el-input>
@@ -190,8 +190,11 @@ export default {
                   <i class="el-icon-user-solid"></i>
                 </span>
             </template>
-            <el-option label="运动员" value="athlete"></el-option>
-            <el-option label="教练员" value="coach"></el-option>
+            <el-option v-for="option in $roleOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
           <el-select v-model="userInfo.role" v-if="userInfo.role === 'admin'" placeholder="请选择角色" style="width: 100%" :disabled="true">
             <template #prefix>
@@ -199,7 +202,11 @@ export default {
                   <i class="el-icon-user-solid"></i>
                 </span>
             </template>
-            <el-option label="管理员" value="admin"></el-option>
+            <el-option v-for="option in $adminRoleOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="validCode">
@@ -207,7 +214,7 @@ export default {
             <el-input v-model="userInfo.validCode" style="flex: 1;" placeholder="请输入验证码"
                       prefix-icon="el-icon-circle-check"></el-input>
             <div class="p-lr-area-input-valid">
-              <ValidCode  ref="validCodeRef" @update:value="rcValidCode"/>
+              <ValidCode ref="userInfoValidCodeRef" @update:value="rcValidCode"/>
             </div>
           </div>
         </el-form-item>

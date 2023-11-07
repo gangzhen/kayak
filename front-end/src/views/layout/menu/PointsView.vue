@@ -71,8 +71,11 @@ export default {
       <el-form :inline="true" :model="searchForm">
         <el-form-item label="性别:">
           <el-select v-model="searchForm.gender" placeholder="请选择性别" @change="handleGenderChange">
-            <el-option label="男" value="male"></el-option>
-            <el-option label="女" value="female"></el-option>
+            <el-option v-for="option in $genderOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
           </el-select>
         </el-form-item>
         <!--      <el-form-item label="排序:">-->
@@ -90,12 +93,12 @@ export default {
         <!--      <el-form-item label="地区:">-->
         <!--        <el-input v-model="searchForm.region" placeholder="请输入地区" clearable></el-input>-->
         <!--      </el-form-item>-->
-        <el-form-item label="日期:">
+        <el-form-item label="年份:">
           <el-date-picker
               v-model="searchForm.year"
               type="year"
               value-format="yyyy"
-              placeholder="选择日期"
+              placeholder="选择年份"
               clearable
               @change="handleYearChange">
           </el-date-picker>
