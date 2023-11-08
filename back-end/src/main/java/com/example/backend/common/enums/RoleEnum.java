@@ -12,6 +12,7 @@ public enum RoleEnum {
     ADMIN("admin", "管理员", -1),
     ATHLETE("athlete", "运动员", 1),
     COACH("coach", "教练员", 2),
+
     ;
 
     /**

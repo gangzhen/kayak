@@ -10,9 +10,12 @@ import java.util.Arrays;
 @AllArgsConstructor
 @ToString
 public enum RoleApisEnum {
+    //TODO 角色需要添加禁止访问接口的时候修改
     ADMIN(RoleEnum.ADMIN.getCode(), new String[]{}),
     ATHLETE(RoleEnum.ATHLETE.getCode(), new String[]{ApisEnum.ATHLETE_MANAGE_ADD.getUrl(), ApisEnum.ATHLETE_MANAGE_DELETE.getUrl(), ApisEnum.ATHLETE_MANAGE_UPDATE.getUrl(), ApisEnum.ATHLETE_MANAGE_SEARCH.getUrl()}),
-    COACH(RoleEnum.COACH.getCode(), new String[]{ApisEnum.ATHLETE_MANAGE_ADD.getUrl(), ApisEnum.ATHLETE_MANAGE_DELETE.getUrl(), ApisEnum.ATHLETE_MANAGE_UPDATE.getUrl(), ApisEnum.ATHLETE_MANAGE_SEARCH.getUrl()});
+    COACH(RoleEnum.COACH.getCode(), new String[]{ApisEnum.ATHLETE_MANAGE_ADD.getUrl(), ApisEnum.ATHLETE_MANAGE_DELETE.getUrl(), ApisEnum.ATHLETE_MANAGE_UPDATE.getUrl(), ApisEnum.ATHLETE_MANAGE_SEARCH.getUrl()}),
+
+    ;
 
 
     private final String code;

@@ -35,8 +35,8 @@ Vue.prototype.$levelOptions = [
 ];
 
 Vue.prototype.$totalCodeOptions = [
-    {label: '32名以下 (<32)', value: '1',},
-    {label: '32名以上 (≥32)', value: '2',},
+    {label: '32名以上 (≥32)', value: '1',},
+    {label: '32名以下 (<32)', value: '2',},
 ];
 
 Vue.prototype.$rankingCodeOptions = [
