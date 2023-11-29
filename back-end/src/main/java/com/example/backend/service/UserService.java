@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.common.enums.RoleEnum;
 import com.example.backend.controller.request.PwdRequest;
 import com.example.backend.controller.request.UserRequest;
+import com.example.backend.controller.response.AthleteDetailResponse;
 import com.example.backend.entity.User;
 import com.example.backend.exception.ServiceException;
 import com.example.backend.mapper.UserMapper;
@@ -196,7 +197,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         }
 
         // 非法提权抛异常 （更新提交需要修改的信息是不是管理员，是管理员后对比数据库中的用户信息是不是管理员，相同可更新，不相同拒绝更新）
-        if(RoleEnum.ADMIN.getCode().equals(userItem.getRole()) && !RoleEnum.ADMIN.getCode().equals(queryUser.getRole())) {
+        if (RoleEnum.ADMIN.getCode().equals(userItem.getRole()) && !RoleEnum.ADMIN.getCode().equals(queryUser.getRole())) {
             throw new ServiceException("非法修改信息");
         }
     }
@@ -206,6 +207,14 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         // 置空密码
         queryUser.setPassword(null);
         return queryUser;
+    }
+
+    public User search(String idNumber, Integer year) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id_number", idNumber)
+                .eq("year", year);
+        List<User> list = this.list(queryWrapper);
+        return !list.isEmpty() ? list.get(0) : new User();
     }
 
     public void updatePwd(PwdRequest pwdItem) {
@@ -226,7 +235,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     private void checkUpdatePwd(PwdRequest pwdItem) {
 
-        if (StrUtil.isBlank(pwdItem.getId()) ||StrUtil.isBlank(pwdItem.getId()) ||StrUtil.isBlank(pwdItem.getId()) ||StrUtil.isBlank(pwdItem.getId())) {
+        if (StrUtil.isBlank(pwdItem.getId()) || StrUtil.isBlank(pwdItem.getId()) || StrUtil.isBlank(pwdItem.getId()) || StrUtil.isBlank(pwdItem.getId())) {
             throw new ServiceException("修改密码有空值");
         }
 
@@ -251,4 +260,19 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     }
 
+    public AthleteDetailResponse searchAthleteDetail(Integer id) {
+        User searchUser = search(id);
+        if (searchUser.getId() == null) {
+            throw new ServiceException("没有用户信息");
+        }
+        return new AthleteDetailResponse(searchUser.getId(), searchUser.getUsername(), searchUser.getIdNumber());
+    }
+
+    public AthleteDetailResponse searchAthleteDetail(String idNumber, Integer year) {
+        User searchUser = search(idNumber, year);
+        if (searchUser.getId() == null) {
+            throw new ServiceException("没有用户信息");
+        }
+        return new AthleteDetailResponse(searchUser.getId(), searchUser.getUsername(), searchUser.getIdNumber());
+    }
 }

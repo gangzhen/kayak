@@ -99,7 +99,7 @@ export default {
           <i class="el-icon-trophy" style="color: #ffffff"></i>
           <span slot="title">地区赛事</span>
         </el-menu-item>
-        <el-menu-item index="/competition-registration" v-if="this.userInfo.role !== 'coach'">
+        <el-menu-item index="/competition-registration" v-show="this.userInfo.role !== 'coach'">
           <i class="el-icon-basketball" style="color: #ffffff"></i>
           <span slot="title">单项比赛报名</span>
         </el-menu-item>
@@ -107,7 +107,7 @@ export default {
           <i class="el-icon-medal-1" style="color: #ffffff"></i>
           <span slot="title">教练员列表</span>
         </el-menu-item>
-        <el-menu-item index="/athletes-management" v-if="this.userInfo.role === 'admin'">
+        <el-menu-item index="/athletes-management" v-show="userInfo.role === 'admin'">
           <i class="el-icon-takeaway-box" style="color: #ffffff"></i>
           <span slot="title">运动员管理</span>
         </el-menu-item>

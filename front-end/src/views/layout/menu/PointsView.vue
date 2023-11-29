@@ -24,9 +24,9 @@ export default {
 
     onSearch() {
       // 使用page和pageSize分页查询
-      this.searchForm["page"] = this.page;
-      this.searchForm["pageSize"] = this.pageSize;
-      this.$http.post("/points-rank/search", this.searchForm).then(res => {
+      this.searchForm['page'] = this.page;
+      this.searchForm['pageSize'] = this.pageSize;
+      this.$http.post('/points-rank/search', this.searchForm).then(res => {
         this.tableData = res.data.records
         this.totalNum = res.data.total
       })
@@ -67,7 +67,7 @@ export default {
 <template>
   <div class="p-main-area">
 
-    <div class="p-main-table-search" v-if="true">
+    <div class="p-main-table-search" v-show="true">
       <el-form :inline="true" :model="searchForm">
         <el-form-item label="性别:">
           <el-select v-model="searchForm.gender" placeholder="请选择性别" @change="handleGenderChange">
@@ -99,7 +99,8 @@ export default {
               type="year"
               value-format="yyyy"
               placeholder="选择年份"
-              clearable
+              :clearable="false"
+              :editable="false"
               @change="handleYearChange">
           </el-date-picker>
         </el-form-item>

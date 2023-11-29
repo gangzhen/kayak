@@ -16,7 +16,7 @@ export default {
 
     onSearch() {
       //TODO 根据条件查询图表数据
-      this.$http.get("/charts/stay").then(res => {
+      this.$http.get('/charts/stay').then(res => {
         this.chartXData = res.data.xdata;
         this.chartYData = res.data.ydata;
         this.drawChart();
@@ -86,7 +86,7 @@ export default {
 
 <template>
   <div class="p-main-charts">
-    <div class="p-main-charts-search" v-if="false">
+    <div class="p-main-charts-search" v-show="false">
     </div>
     <div class="p-main-charts-display" id="chartsStay"></div>
   </div>

@@ -14,6 +14,12 @@ Vue.prototype.$genderOptions = [
     {label: '女', value: 'female',},
 ];
 
+Vue.prototype.$reviewOptions = [
+    {label: '待审核', value: 'pending',},
+    {label: '审核通过', value: 'pass',},
+    {label: '审核不通过', value: 'fail',},
+];
+
 Vue.prototype.$regionOptions = [
     {label: '地区一', value: 'region1',},
     {label: '地区二', value: 'region2',},
@@ -35,15 +41,15 @@ Vue.prototype.$levelOptions = [
 ];
 
 Vue.prototype.$totalCodeOptions = [
-    {label: '32名以上 (≥32)', value: '1',},
-    {label: '32名以下 (<32)', value: '2',},
+    {label: '32名以上 (≥32)', value: 1,},
+    {label: '32名以下 (<32)', value: 2,},
 ];
 
 Vue.prototype.$rankingCodeOptions = [
-    {label: '冠军', value: '1',},
-    {label: '亚军', value: '2',},
-    {label: '半决赛', value: '3',},
-    {label: '前8名', value: '4',},
-    {label: '前16名', value: '5',},
-    {label: '前32名', value: '6',},
+    {label: '冠军', value: 1,},
+    {label: '亚军', value: 2,},
+    {label: '半决赛', value: 3,},
+    {label: '前8名', value: 4,},
+    {label: '前16名', value: 5,},
+    {label: '前32名', value: 6,},
 ];

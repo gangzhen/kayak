@@ -16,6 +16,7 @@ export default {
         gender: '',
         idNumber: '',
         region: '',
+        year: '',
         level: '',
         rankingCode: '',
         totalCode: '',
@@ -68,15 +69,18 @@ export default {
 
     onSearch() {
       // 使用page和pageSize分页查询
-      this.searchForm["page"] = this.page;
-      this.searchForm["pageSize"] = this.pageSize;
-      this.$http.post("/athlete-manage/search", this.searchForm).then(res => {
+      this.searchForm['page'] = this.page;
+      this.searchForm['pageSize'] = this.pageSize;
+      this.$http.post('/athlete-manage/search', this.searchForm).then(res => {
         this.tableData = res.data.records
         this.totalNum = res.data.total
       })
     },
 
     onAddDialog() {
+      this.dialogData = {
+        year: new Date().getFullYear().toString(),
+      }
       this.dialogTitle = '新 增';
       this.dialogVisible = true;
     },
@@ -89,6 +93,7 @@ export default {
         gender: row.gender,
         idNumber: row.idNumber,
         region: row.region,
+        year: row.year.toString(),
         level: row.level,
         rankingCode: row.rankingCode,
         totalCode: row.totalCode,
@@ -99,18 +104,37 @@ export default {
 
     onDelete(index, row) {
       this.handleDelete(row.id);
-      this.onSearch();
     },
 
     handleCancel() {
-      this.dialogVisible = false;
-      this.dialogTitle = '';
-      this.dialogData = {};
-      this.$refs.athleteDialogDataRef.resetFields();
+      // 先重置表单数据
+      this.dialogData = {
+        name: '',
+        age: '',
+        gender: '',
+        idNumber: '',
+        region: '',
+        year: '',
+        level: '',
+        rankingCode: '',
+        totalCode: '',
+      };
+
+      // 然后关闭对话框并重置表单校验状态
+      this.$nextTick(() => {
+        if (this.$refs.athleteDialogDataRef) {
+          this.$refs.athleteDialogDataRef.resetFields();
+        }
+        this.dialogVisible = false;
+        this.dialogTitle = '';
+      });
+
+      // 重新加载搜索结果
       this.onSearch();
     },
 
     handleAddOrEdit() {
+      //TODO 校验数据字段
       if (this.ruleFormData()) {
         if (this.dialogTitle === '新 增') {
           this.handleAdd();
@@ -121,8 +145,8 @@ export default {
     },
 
     handleAdd() {
-      //TODO 校验数据字段
-      this.$http.post("/athlete-manage/add", this.dialogData).then(res => {
+      // this.dialogData新增入库
+      this.$http.post('/athlete-manage/add', this.dialogData).then(res => {
         if (res.code === "200") {
           this.$message.success('添加成功');
           this.handleCancel();
@@ -132,8 +156,7 @@ export default {
 
     handleEdit() {
       // this.dialogData更新入库
-      //TODO 校验数据字段
-      this.$http.put("/athlete-manage/update", this.dialogData).then(res => {
+      this.$http.put('/athlete-manage/update', this.dialogData).then(res => {
         if (res.code === "200") {
           this.$message.success('更新成功');
           this.handleCancel();
@@ -146,6 +169,7 @@ export default {
       this.$http.delete(`/athlete-manage/delete/${id}`).then(res => {
         if (res.code === "200") {
           this.$message.success('删除成功');
+          this.onSearch();
         }
       })
     },
@@ -165,6 +189,18 @@ export default {
       this.page = val;
       console.log(`当前页: ${val}`);
       this.onSearch();
+    },
+
+    handleTotalDisplay(row, column, value) {
+      if (!value) return '';
+      const region = this.$totalCodeOptions.find(option => option.value === value);
+      return region ? region.label : ''
+    },
+
+    handleRankingDisplay(row, column, value) {
+      if (!value) return '';
+      const region = this.$rankingCodeOptions.find(option => option.value === value);
+      return region ? region.label : '';
     },
 
   }
@@ -214,21 +250,28 @@ export default {
               align="center">
           </el-table-column>
           <el-table-column
+              prop="year"
+              label="年份"
+              align="center">
+          </el-table-column>
+          <el-table-column
               prop="level"
               label="级别"
               width="150"
               align="center">
           </el-table-column>
           <el-table-column
-              prop="totalLevel"
+              prop="totalCode"
               label="参赛人数"
               width="150"
+              :formatter="handleTotalDisplay"
               align="center">
           </el-table-column>
           <el-table-column
-              prop="rankingLevel"
+              prop="rankingCode"
               label="名次"
               width="150"
+              :formatter="handleRankingDisplay"
               align="center">
           </el-table-column>
           <el-table-column
@@ -303,6 +346,16 @@ export default {
         <el-form-item label="地区:" prop="region">
           <el-input v-model="dialogData.region"></el-input>
         </el-form-item>
+        <el-form-item label="年份:" prop="year">
+          <el-date-picker
+              v-model="dialogData.year"
+              type="year"
+              value-format="yyyy"
+              placeholder="选择年份"
+              :clearable="false"
+              :editable="false">
+          </el-date-picker>
+        </el-form-item>
         <el-form-item label="级别:" prop="level">
           <el-select v-model="dialogData.level" placeholder="请选择比赛项目">
             <el-option v-for="option in $levelOptions"
@@ -333,7 +386,7 @@ export default {
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click.native="handleCancel()">取 消</el-button>
+        <el-button @click.native="handleCancel">取 消</el-button>
         <el-button type="primary" @click.native="handleAddOrEdit">确 定</el-button>
       </span>
     </el-dialog>

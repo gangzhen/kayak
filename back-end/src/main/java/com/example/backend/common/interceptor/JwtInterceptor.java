@@ -58,7 +58,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
 
         //判断用户角色权限是否可以访问接口
-        if (RoleApisEnum.checkAccessUrl(user.getRole(), url)) {
+        if (StrUtil.isBlank(user.getRole()) || RoleApisEnum.checkNoPermissionUrl(user.getRole(), url)) {
             throw new ServiceException("403", "无权限访问");
         }
 

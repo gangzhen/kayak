@@ -24,7 +24,7 @@ public class AthleteManageController {
 
     @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Integer id) {
-        athleteManageService.removeById(id);
+        athleteManageService.delete(id);
         return Result.success("删除成功");
     }
 

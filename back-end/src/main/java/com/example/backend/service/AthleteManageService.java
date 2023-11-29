@@ -8,7 +8,6 @@ import com.example.backend.common.enums.RankingLevelPointsEnum;
 import com.example.backend.controller.request.ConditionItem;
 import com.example.backend.entity.UserPoints;
 import com.example.backend.mapper.UserPointsMapper;
-import com.example.backend.utils.CustomDateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +21,10 @@ public class AthleteManageService extends ServiceImpl<UserPointsMapper, UserPoin
     public void add(UserPoints userPoints) {
         userPoints = setUserPointValue(userPoints);
         save(userPoints);
+    }
+
+    public void delete(Integer id) {
+        removeById(id);
     }
 
     public void update(UserPoints userPoints) {
@@ -46,7 +49,7 @@ public class AthleteManageService extends ServiceImpl<UserPointsMapper, UserPoin
         userPoints.setTotalLevel(rankingPoints.getTotalLevel());
         userPoints.setRankingCode(rankingPoints.getRankingCode());
         userPoints.setRankingLevel(rankingPoints.getRankingLevel());
-        userPoints.setYear(CustomDateUtils.getCurrentYear());
+        userPoints.setYear(userPoints.getYear());
         return userPoints;
     }
 }

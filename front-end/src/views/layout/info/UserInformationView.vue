@@ -152,6 +152,8 @@ export default {
           this.userInfo.validCode = '';
           this.userInfo.password = '';
           this.$message.success('修改成功')
+          // 跳转回根目录
+          this.$router.push("/");
         } else {
           this.$message.error(res.msg)
         }
@@ -184,7 +186,7 @@ export default {
           </el-input>
         </el-form-item>
         <el-form-item prop="role">
-          <el-select v-model="userInfo.role" v-if="userInfo.role !== 'admin'" placeholder="请选择角色" style="width: 100%">
+          <el-select v-model="userInfo.role" v-show="userInfo.role !== 'admin'" placeholder="请选择角色" style="width: 100%">
             <template #prefix>
                 <span style="padding-left: 5px;">
                   <i class="el-icon-user-solid"></i>
@@ -196,7 +198,7 @@ export default {
                        :value="option.value">
             </el-option>
           </el-select>
-          <el-select v-model="userInfo.role" v-if="userInfo.role === 'admin'" placeholder="请选择角色" style="width: 100%" :disabled="true">
+          <el-select v-model="userInfo.role" v-show="userInfo.role === 'admin'" placeholder="请选择角色" style="width: 100%" :disabled="true">
             <template #prefix>
                 <span style="padding-left: 5px;">
                   <i class="el-icon-user-solid"></i>
