@@ -26,6 +26,10 @@ public enum RoleApisEnum {
                     ApisEnum.REGIONAL_COMPETITION_UPDATE.getUrl(),
 
                     ApisEnum.COMPETITION_REGISTRATION_REVIEW.getUrl(),
+
+                    ApisEnum.COACH_MANAGE_ADD.getUrl(),
+                    ApisEnum.COACH_MANAGE_DELETE.getUrl(),
+                    ApisEnum.COACH_MANAGE_UPDATE.getUrl(),
             }),
     COACH(RoleEnum.COACH.getCode(),
             new String[]{
@@ -44,6 +48,10 @@ public enum RoleApisEnum {
                     ApisEnum.COMPETITION_REGISTRATION_REVIEW.getUrl(),
                     ApisEnum.COMPETITION_REGISTRATION_SEARCH_COMPETITION.getUrl(),
                     ApisEnum.COMPETITION_REGISTRATION_SEARCH_ATHLETE_DETAIL.getUrl(),
+
+                    ApisEnum.COACH_MANAGE_ADD.getUrl(),
+                    ApisEnum.COACH_MANAGE_DELETE.getUrl(),
+                    ApisEnum.COACH_MANAGE_UPDATE.getUrl(),
             }),
 
 

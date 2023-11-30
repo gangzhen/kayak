@@ -159,12 +159,33 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         checkUserOperationLegal(queryUser, userItem);
 
         // 更新用户
-        BeanUtils.copyProperties(userItem, queryUser);
+        queryUser.setUsername(userItem.getUsername());
+        queryUser.setIdNumber(userItem.getIdNumber());
+        queryUser.setPhoneNumber(userItem.getPhoneNumber());
+        queryUser.setRole(userItem.getRole());
         updateById(queryUser);
 
         // 置空密码
         queryUser.setPassword(null);
         return queryUser;
+    }
+
+    public void updateByAdmin(UserRequest userRequest) {
+
+        // 校验提交修改的用户信息符合规范
+        checkUpdateInfo(userRequest);
+
+
+        User queryUser = userMapper.selectById(userRequest.getId());
+        // 校验用户操作是否合法 不合法抛异常
+        checkUserOperationLegalByAdmin(queryUser, userRequest);
+
+        // 更新用户
+        queryUser.setUsername(userRequest.getUsername());
+        queryUser.setIdNumber(userRequest.getIdNumber());
+        queryUser.setPhoneNumber(userRequest.getPhoneNumber());
+        queryUser.setRole(userRequest.getRole());
+        updateById(queryUser);
     }
 
     private void checkUpdateInfo(UserRequest userItem) {
@@ -198,6 +219,18 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
         // 非法提权抛异常 （更新提交需要修改的信息是不是管理员，是管理员后对比数据库中的用户信息是不是管理员，相同可更新，不相同拒绝更新）
         if (RoleEnum.ADMIN.getCode().equals(userItem.getRole()) && !RoleEnum.ADMIN.getCode().equals(queryUser.getRole())) {
+            throw new ServiceException("非法修改信息");
+        }
+    }
+
+    private void checkUserOperationLegalByAdmin(User queryUser, UserRequest userRequest) {
+
+        if (queryUser == null) {
+            throw new ServiceException("非法修改信息");
+        }
+
+        // 非法提权抛异常 （更新提交需要修改的信息是不是管理员，是管理员后对比数据库中的用户信息是不是管理员，相同可更新，不相同拒绝更新）
+        if (RoleEnum.ADMIN.getCode().equals(userRequest.getRole()) && !RoleEnum.ADMIN.getCode().equals(queryUser.getRole())) {
             throw new ServiceException("非法修改信息");
         }
     }

@@ -362,7 +362,7 @@ export default {
   <div class="p-main-area">
     <div class="p-main-table-search">
       <el-form :inline="true" :model="searchForm">
-        <el-form-item label="年份:" v-show="adminBtnVisible">
+        <el-form-item label="年份:" v-if="adminBtnVisible">
           <el-date-picker
               v-model="searchForm.year"
               type="year"
@@ -398,7 +398,7 @@ export default {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-show="adminBtnVisible || athleteBtnVisible"
+          <el-button type="primary" v-if="adminBtnVisible || athleteBtnVisible"
                      @click.native="onRegistrationDialog">报名
           </el-button>
         </el-form-item>
@@ -453,15 +453,15 @@ export default {
               width="250"
               align="center">
             <template slot-scope="scope">
-              <el-button size="mini" type="primary" v-show="adminBtnVisible && scope.row.progress === 'pending'"
+              <el-button size="mini" type="primary" v-if="adminBtnVisible && scope.row.progress === 'pending'"
                          @click.native="onReviewDialog(scope.$index, scope.row)">审核
               </el-button>
               <el-button size="mini" type="primary"
-                         v-show="(adminBtnVisible || athleteBtnVisible) && scope.row.progress !== 'pending'"
+                         v-if="(adminBtnVisible || athleteBtnVisible) && scope.row.progress !== 'pending'"
                          @click.native="onDetailDialog(scope.$index, scope.row)">详情
               </el-button>
               <el-popconfirm title="确定取消报名吗？"
-                             v-show="(adminBtnVisible || athleteBtnVisible) && scope.row.progress === 'pending'"
+                             v-if="(adminBtnVisible || athleteBtnVisible) && scope.row.progress === 'pending'"
                              @confirm="onCancel(scope.$index, scope.row)">
                 <el-button style="margin-left: 5px" size="mini" type="danger" slot="reference">取消报名</el-button>
               </el-popconfirm>
@@ -542,21 +542,21 @@ export default {
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="审核意见:" prop="reason" v-show="dialogReasonVisible">
+        <el-form-item label="审核意见:" prop="reason" v-if="dialogReasonVisible">
           <el-input type="textarea" v-model="dialogData.reason" :disabled="dialogReasonDisable"></el-input>
         </el-form-item>
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button v-show="dialogCancelBtnVisible"
+        <el-button v-if="dialogCancelBtnVisible"
                    @click.native="handleCancel">取 消</el-button>
-        <el-button v-show="dialogCloseBtnVisible"
+        <el-button v-if="dialogCloseBtnVisible"
                    @click.native="handleCancel">关 闭</el-button>
-        <el-button type="primary" v-show="dialogRegBtnVisible"
+        <el-button type="primary" v-if="dialogRegBtnVisible"
                    @click.native="handleRegistration">报 名</el-button>
-        <el-button type="danger" v-show="dialogFailBtnVisible"
+        <el-button type="danger" v-if="dialogFailBtnVisible"
                    @click.native="handleFailReview">不 通 过</el-button>
-        <el-button type="primary" v-show="dialogPassBtnVisible"
+        <el-button type="primary" v-if="dialogPassBtnVisible"
                    @click.native="handlePassReview">通 过</el-button>
       </span>
     </el-dialog>

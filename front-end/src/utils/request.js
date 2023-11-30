@@ -38,6 +38,11 @@ request.interceptors.response.use(
         }
 
         let res = response.data;
+        // 401清除token
+        if (res.code === '401') {
+            localStorage.removeItem('userInfo')
+            localStorage.removeItem('token')
+        }
         // 如果是返回的文件
         if (response.config.responseType === 'blob') {
             return res

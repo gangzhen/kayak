@@ -55,7 +55,7 @@ export default {
       <img src="@/assets/logo.png" alt="" style="width: 50px; height: 50px">
     </div>
     <div class="logo-title">
-      <span v-show="!isCollapse">管理系统</span>
+      <span v-if="!isCollapse">管理系统</span>
     </div>
 
     <div>
@@ -99,7 +99,7 @@ export default {
           <i class="el-icon-trophy" style="color: #ffffff"></i>
           <span slot="title">地区赛事</span>
         </el-menu-item>
-        <el-menu-item index="/competition-registration" v-show="this.userInfo.role !== 'coach'">
+        <el-menu-item index="/competition-registration" v-if="this.userInfo.role !== 'coach'">
           <i class="el-icon-basketball" style="color: #ffffff"></i>
           <span slot="title">单项比赛报名</span>
         </el-menu-item>
@@ -107,9 +107,9 @@ export default {
           <i class="el-icon-medal-1" style="color: #ffffff"></i>
           <span slot="title">教练员列表</span>
         </el-menu-item>
-        <el-menu-item index="/athletes-management" v-show="userInfo.role === 'admin'">
+        <el-menu-item index="/athletes-management" v-if="userInfo.role === 'admin'">
           <i class="el-icon-takeaway-box" style="color: #ffffff"></i>
-          <span slot="title">运动员管理</span>
+          <span slot="title">比赛积分列表</span>
         </el-menu-item>
       </el-menu>
     </div>

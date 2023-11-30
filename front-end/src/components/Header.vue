@@ -11,7 +11,20 @@ export default {
       userInfo: JSON.parse(localStorage.getItem("userInfo") || "{}")
     }
   },
+  created() {
+    // 添加事件监听器
+    window.addEventListener("localStorageUpdated", this.handleLocalStorageUpdate);
+  },
+  beforeDestroy() {
+    // 清除事件监听器
+    window.removeEventListener("localStorageUpdated", this.handleLocalStorageUpdate);
+  },
   methods: {
+
+    handleLocalStorageUpdate(event) {
+      // 更新组件的数据
+      this.userInfo = event.detail;
+    },
 
     handleCollapse() {
       this.isCollapse = !this.isCollapse;
@@ -58,10 +71,13 @@ export default {
       <el-col style="width: 2%">
         <i :class="collapseIcon" style="font-size: 25px; height: 44px; line-height: 44px" @click="handleCollapse"></i>
       </el-col>
-      <el-col  style="width: 10%">
+      <el-col style="width: 10%">
         <div style="width: 300px;">
           <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item v-for="item in breadcrumb" :to="item.to" :key="item.text">{{ item.text }}</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="item in breadcrumb" :to="item.to" :key="item.text">{{
+                item.text
+              }}
+            </el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
@@ -70,7 +86,9 @@ export default {
 
           <el-dropdown placement="bottom">
             <!--              <img src="@/assets/logo.png" alt="" style="width: 40px; height: 40px">-->
-            <span style="font-size: 16px; font-weight: bolder; height: 44px; line-height: 44px">{{ userInfo.username }}</span>
+            <span style="font-size: 16px; font-weight: bolder; height: 44px; line-height: 44px">{{
+                userInfo.username
+              }}</span>
 
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="handlePersonalInfo">个人信息</el-dropdown-item>

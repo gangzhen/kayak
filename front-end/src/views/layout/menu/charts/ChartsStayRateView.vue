@@ -68,7 +68,7 @@ export default {
 
 <template>
   <div class="p-main-charts">
-    <div class="p-main-charts-search" v-show="false">
+    <div class="p-main-charts-search" v-if="false">
     </div>
     <div class="p-main-charts-display" id="chartsStayRate"></div>
   </div>

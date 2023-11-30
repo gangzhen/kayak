@@ -67,7 +67,7 @@ export default {
 <template>
   <div class="p-main-area">
 
-    <div class="p-main-table-search" v-show="true">
+    <div class="p-main-table-search" v-if="true">
       <el-form :inline="true" :model="searchForm">
         <el-form-item label="性别:">
           <el-select v-model="searchForm.gender" placeholder="请选择性别" @change="handleGenderChange">

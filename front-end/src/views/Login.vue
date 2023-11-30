@@ -112,7 +112,8 @@ export default {
             <div style="flex: 1; text-align: left">首次登录，请先<span class="p-lr-area-input-jump"
                                                                       @click="handleRegister">注册</span>
             </div>
-            <div style="flex: 1; text-align: right"><span class="p-lr-area-input-jump" @click="handleForget">忘记密码？</span></div>
+            <!--            忘记密码待开发-->
+            <!--            <div style="flex: 1; text-align: right"><span class="p-lr-area-input-jump" @click="handleForget">忘记密码？</span></div>-->
           </div>
           <el-form-item>
             <el-button type="primary" style="width: 100%" @click.native="handleLogin">登 录</el-button>

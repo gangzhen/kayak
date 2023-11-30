@@ -211,7 +211,7 @@ export default {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-show="userInfo.role === 'admin'" @click.native="onAddDialog">新增</el-button>
+          <el-button type="primary" v-if="userInfo.role === 'admin'" @click.native="onAddDialog">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -254,7 +254,7 @@ export default {
               label="操作"
               width="250"
               align="center"
-              v-show="userInfo.role === 'admin'">
+              v-if="userInfo.role === 'admin'">
             <template slot-scope="scope">
               <el-button
                   size="mini"

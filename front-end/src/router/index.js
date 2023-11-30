@@ -86,7 +86,7 @@ const routes = [
                 path: 'athletes-management',
                 name: 'athletes-management',
                 component: () => import('@/views/layout/menu/AthletesManageView.vue'),
-                meta: {requiresAdmin: true, requiresAthlete: false, requiresCoach: false, breadcrumb: '运动员管理',},
+                meta: {requiresAdmin: true, requiresAthlete: false, requiresCoach: false, breadcrumb: '比赛积分列表',},
             },
             {
                 path: 'information',

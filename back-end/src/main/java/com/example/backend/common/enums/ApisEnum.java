@@ -16,6 +16,8 @@ public enum ApisEnum {
     USER_UPDATE_PWD("/user/update-pwd", "修改密码"),
     USER_SEARCH("/user/search", "查找"),
 
+    POINTS_RANK_SEARCH("/points-rank/search", "查询积分排名列表"),
+
     ATHLETE_MANAGE_ADD("/athlete-manage/add", "新增运动员分数记录"),
     ATHLETE_MANAGE_DELETE("/athlete-manage/delete", "删除运动员分数记录"),
     ATHLETE_MANAGE_UPDATE("/athlete-manage/update", "更新运动员分数记录"),
@@ -33,7 +35,11 @@ public enum ApisEnum {
     COMPETITION_REGISTRATION_SEARCH_COMPETITION("/competition-registration/search-competitions", "按年份查询赛事列表"),
     COMPETITION_REGISTRATION_SEARCH_ATHLETE_DETAIL("/competition-registration/search-athlete-detail", "查询运动员详情"),
 
-    POINTS_RANK_SEARCH("/points-rank/search", "查询积分排名列表"),
+    COACH_MANAGE_ADD("/coach-manage/add", "新增教练员"),
+    COACH_MANAGE_DELETE("/coach-manage/delete", "删除教练员"),
+    COACH_MANAGE_UPDATE("/coach-manage/update", "更新教练员"),
+    COACH_MANAGE_SEARCH("/coach-manage/search", "查询教练员列表"),
+
 
     CHARTS_STAY("/charts/stay", "留榜人数数据查询"),
     CHARTS_STAY_RATE("/charts/stay-rate", "留榜率数据查询"),

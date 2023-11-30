@@ -3,6 +3,28 @@
 export default {
   name: "AthletesManageView",
   data() {
+
+    const nameRule = (rule, value, callback) => {
+      //1.可以是中文
+      //2.可以是英文，允许输入点（英文名字中的那种点）， 允许输入空格
+      //3.中文和英文不能同时出现
+      //4.长度在20个字符以内
+      const regName = /^([\u4e00-\u9fa5]{2,20}|[a-zA-Z.\s]{2,20})$/;
+      if (regName.test(value)) {
+        //正确的名字
+        return callback();
+      }
+      callback(new Error("姓名格式有误"));
+    };
+
+    const idNumberRule = (rule, value, callback) => {
+      const regIDNumber = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[0-2])(([0-2][1-9])|10|20|30|31)\d{3}(\d|X|x)$/;
+      if (regIDNumber.test(value)) {
+        return callback();
+      }
+      callback(new Error("身份证号格式有误"));
+    }
+
     return {
       dialogVisible: false,
       deleteVisible: false,
@@ -26,6 +48,7 @@ export default {
       athleteRules: {
         name: [
           {required: true, message: '请输入姓名', trigger: 'blur'},
+          {validator: nameRule, trigger: 'submit'},
         ],
         age: [
           {required: true, message: '请输入年龄', trigger: 'blur'}
@@ -34,19 +57,20 @@ export default {
           {required: true, message: '请选择性别', trigger: 'change'}
         ],
         idNumber: [
-          {required: true, message: '请输入身份证号', trigger: 'blur'}
+          {required: true, message: '请输入身份证号', trigger: 'blur'},
+          {validator: idNumberRule, trigger: 'submit'},
         ],
         region: [
-          {required: true, message: '请输入地区', trigger: 'blur'}
+          {required: true, message: '请输入地区', trigger: 'blur'},
         ],
         level: [
-          {required: true, message: '请选择级别', trigger: 'change'}
+          {required: true, message: '请选择级别', trigger: 'change'},
         ],
         totalCode: [
-          {required: true, message: '请选择参赛人数', trigger: 'change'}
+          {required: true, message: '请选择参赛人数', trigger: 'change'},
         ],
         rankingCode: [
-          {required: true, message: '请选择名次', trigger: 'change'}
+          {required: true, message: '请选择名次', trigger: 'change'},
         ]
       },
     }
