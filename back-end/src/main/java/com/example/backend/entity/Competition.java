@@ -19,6 +19,7 @@ public class Competition {
     private String competition;
     private String level;
     private String region;
+    private String date;
     private Integer year;
     private Date time;
 }

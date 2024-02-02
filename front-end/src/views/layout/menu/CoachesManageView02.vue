@@ -2,7 +2,7 @@
 import ValidCode from "@/components/ValidCode.vue";
 
 export default {
-  name: "CoachesManageView",
+  name: "CoachesManageView02",
   components: {ValidCode},
   data() {
 
@@ -224,16 +224,25 @@ export default {
 
     <div class="p-main-table-search">
       <el-form :inline="true" :model="searchForm">
-        <el-form-item label="年份:">
-          <el-date-picker
-              v-model="searchForm.year"
-              type="year"
-              value-format="yyyy"
-              placeholder="选择年份"
-              :clearable="false"
-              :editable="false"
-              @change="handleYearChange">
-          </el-date-picker>
+        <!--        <el-form-item label="年份:">-->
+        <!--          <el-date-picker-->
+        <!--              v-model="searchForm.year"-->
+        <!--              type="year"-->
+        <!--              value-format="yyyy"-->
+        <!--              placeholder="选择年份"-->
+        <!--              :clearable="false"-->
+        <!--              :editable="false"-->
+        <!--              @change="handleYearChange">-->
+        <!--          </el-date-picker>-->
+        <!--        </el-form-item>-->
+        <el-form-item label="角色:" prop="role">
+          <el-select v-model="searchForm.role" placeholder="请选择角色" style="width: 100%" @change="handleYearChange">
+            <el-option v-for="option in $roleOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item v-if="userInfo.role === 'admin'">
           <el-button type="primary" @click.native="onAddDialog">新增</el-button>
@@ -254,6 +263,11 @@ export default {
               align="center">
           </el-table-column>
           <el-table-column
+              prop="phoneNumber"
+              label="组别"
+              align="center">
+          </el-table-column>
+          <el-table-column
               prop="username"
               label="姓名"
               align="center">
@@ -262,7 +276,7 @@ export default {
               label="操作"
               width="200"
               align="center"
-              v-if="userInfo.role === 'admin'">
+              v-if="false">
             <template slot-scope="scope">
               <el-button
                   size="mini"

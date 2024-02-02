@@ -1,7 +1,7 @@
 <script>
 
 export default {
-  name: "AthletesManageView",
+  name: "AthletesManageView02",
   data() {
 
     const nameRule = (rule, value, callback) => {
@@ -245,7 +245,7 @@ export default {
         <!--        </el-select>-->
         <!--      </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" @click.native="onAddDialog">新增</el-button>
+          <el-button type="primary" v-if="false" @click.native="onAddDialog">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -265,23 +265,37 @@ export default {
           <el-table-column
               prop="name"
               label="姓名"
-              width="200"
+              width="150"
               align="center">
           </el-table-column>
           <el-table-column
-              prop="region"
-              label="地区"
-              align="center">
-          </el-table-column>
-          <el-table-column
-              prop="year"
-              label="年份"
+              prop="dai"
+              label="代表队"
+              width="100"
               align="center">
           </el-table-column>
           <el-table-column
               prop="level"
-              label="级别"
-              width="150"
+              label="比赛名称"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="totalLevel"
+              label="比赛日期"
+              width="250"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="rankingLevel"
+              label="比赛项目"
+              width="250"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="sai"
+              label="组别"
+              width="100"
+              v-if="false"
               align="center">
           </el-table-column>
           <el-table-column
@@ -289,25 +303,32 @@ export default {
               label="参赛人数"
               width="150"
               :formatter="handleTotalDisplay"
+              v-if="false"
               align="center">
           </el-table-column>
           <el-table-column
-              prop="rankingCode"
+              prop="ranking"
               label="名次"
-              width="150"
-              :formatter="handleRankingDisplay"
+              width="100"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              prop="idNumber"
+              label="比赛成绩"
+              width="200"
               align="center">
           </el-table-column>
           <el-table-column
               prop="points"
               label="积分"
-              width="150"
-              align="center">
+              align="center"
+              v-if="false">
           </el-table-column>
           <el-table-column
               label="操作"
               width="250"
-              align="center">
+              align="center"
+              v-if="false">
             <template slot-scope="scope">
               <el-button
                   size="mini"

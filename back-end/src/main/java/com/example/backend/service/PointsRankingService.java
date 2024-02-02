@@ -10,6 +10,8 @@ import com.example.backend.mapper.UserPointsMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PointsRankingService extends ServiceImpl<UserPointsMapper, UserPoints> {
@@ -49,6 +51,44 @@ public class PointsRankingService extends ServiceImpl<UserPointsMapper, UserPoin
             result.getRecords().get(i).setRank(rank);
             rank++;
         }
+
+        UserPoints userPoints01 = new UserPoints();
+        userPoints01.setRank(1);
+        userPoints01.setName("王*");
+        userPoints01.setRegion("地区一");
+        userPoints01.setPoints(2200L);
+        UserPoints userPoints02 = new UserPoints();
+        userPoints02.setRank(1);
+        userPoints02.setName("孙*");
+        userPoints02.setRegion("地区一");
+        userPoints02.setPoints(1100L);
+        UserPoints userPoints03 = new UserPoints();
+        userPoints03.setRank(1);
+        userPoints03.setName("周*");
+        userPoints03.setRegion("地区一");
+        userPoints03.setPoints(1100L);
+        UserPoints userPoints04 = new UserPoints();
+        userPoints04.setRank(1);
+        userPoints04.setName("武*");
+        userPoints04.setRegion("地区一");
+        userPoints04.setPoints(1100L);
+        UserPoints userPoints05 = new UserPoints();
+        userPoints05.setRank(1);
+        userPoints05.setName("郑*");
+        userPoints05.setRegion("地区一");
+        userPoints05.setPoints(1100L);
+
+        List<UserPoints> demo = new ArrayList<>();
+        demo.add(userPoints01);
+        demo.add(userPoints02);
+        demo.add(userPoints03);
+        demo.add(userPoints04);
+        demo.add(userPoints05);
+
+        result.setRecords(demo);
+        result.setTotal(5);
+
+
         return result;
 
     }

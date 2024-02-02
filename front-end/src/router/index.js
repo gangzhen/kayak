@@ -14,8 +14,33 @@ const routes = [
             {
                 path: 'points',
                 name: 'points',
-                component: () => import('@/views/layout/menu/PointsView.vue'),
-                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '积分排名',},
+                // component: () => import('@/views/layout/menu/PointsView01.vue'),
+                component: () => import('@/views/layout/menu/AreaView.vue'),
+                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '积分赛事成绩公告',},
+                children: [
+                    {
+                        path: '1',
+                        name: 'points1',
+                        component: () => import('@/views/layout/menu/PointsView01.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '赛艇',
+                        },
+                    },
+                    {
+                        path: '2',
+                        name: 'points2',
+                        component: () => import('@/views/layout/menu/PointsView02.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '皮划艇',
+                        },
+                    }
+                ],
             },
             {
                 path: 'charts',
@@ -67,26 +92,126 @@ const routes = [
             {
                 path: 'regional-competition',
                 name: 'regional-competition',
-                component: () => import('@/views/layout/menu/RegionalCompetitionView.vue'),
-                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '地区赛事',},
+                // component: () => import('@/views/layout/menu/RegionalCompetitionView01.vue'),
+                component: () => import('@/views/layout/menu/AreaView.vue'),
+                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '赛事日历',},
+                children: [
+                    {
+                        path: '1',
+                        name: 'regional1',
+                        component: () => import('@/views/layout/menu/RegionalCompetitionView01.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '赛艇',
+                        },
+                    },
+                    {
+                        path: '2',
+                        name: 'regional2',
+                        component: () => import('@/views/layout/menu/RegionalCompetitionView02.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '皮划艇',
+                        },
+                    }
+                ],
             },
             {
                 path: 'competition-registration',
                 name: 'competition-registration',
-                component: () => import('@/views/layout/menu/CompetitionRegistrationView.vue'),
-                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: false, breadcrumb: '单项比赛报名',},
+                // component: () => import('@/views/layout/menu/CompetitionRegistrationView01.vue'),
+                component: () => import('@/views/layout/menu/AreaView.vue'),
+                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: false, breadcrumb: '赛事报名',},
+                children: [
+                    {
+                        path: '1',
+                        name: 'competition1',
+                        component: () => import('@/views/layout/menu/CompetitionRegistrationView01.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '赛艇',
+                        },
+                    },
+                    {
+                        path: '2',
+                        name: 'competition2',
+                        component: () => import('@/views/layout/menu/CompetitionRegistrationView02.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '皮划艇',
+                        },
+                    }
+                ],
             },
             {
                 path: 'coaches-management',
                 name: 'coaches-management',
-                component: () => import('@/views/layout/menu/CoachesManageView.vue'),
-                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '教练员列表',},
+                // component: () => import('@/views/layout/menu/CoachesManageView01.vue'),
+                component: () => import('@/views/layout/menu/AreaView.vue'),
+                meta: {requiresAdmin: true, requiresAthlete: true, requiresCoach: true, breadcrumb: '人员信息',},
+                children: [
+                    {
+                        path: '1',
+                        name: 'coaches1',
+                        component: () => import('@/views/layout/menu/CoachesManageView01.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '赛艇',
+                        },
+                    },
+                    {
+                        path: '2',
+                        name: 'coaches2',
+                        component: () => import('@/views/layout/menu/CoachesManageView02.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '皮划艇',
+                        },
+                    }
+                ],
             },
             {
                 path: 'athletes-management',
                 name: 'athletes-management',
-                component: () => import('@/views/layout/menu/AthletesManageView.vue'),
-                meta: {requiresAdmin: true, requiresAthlete: false, requiresCoach: false, breadcrumb: '比赛积分列表',},
+                // component: () => import('@/views/layout/menu/AthletesManageView01.vue'),
+                component: () => import('@/views/layout/menu/AreaView.vue'),
+                meta: {requiresAdmin: true, requiresAthlete: false, requiresCoach: false, breadcrumb: '非积分赛事成绩公告',},
+                children: [
+                    {
+                        path: '1',
+                        name: 'athletes1',
+                        component: () => import('@/views/layout/menu/AthletesManageView01.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '赛艇',
+                        },
+                    },
+                    {
+                        path: '2',
+                        name: 'athletes2',
+                        component: () => import('@/views/layout/menu/AthletesManageView02.vue'),
+                        meta: {
+                            requiresAdmin: true,
+                            requiresAthlete: true,
+                            requiresCoach: true,
+                            breadcrumb: '皮划艇',
+                        },
+                    }
+                ],
             },
             {
                 path: 'information',
@@ -167,7 +292,7 @@ router.beforeEach((to, from, next) => {
 
     // 对于已登录的用户访问公共路径，重定向到'/points'
     if (authFlag && certNeedJumpPaths.includes(to.path)) {
-        return next('/points');
+        return next('/points/1');
     }
 
     // 如果已登录的用户访问'/charts'，重定向到'/charts/stay'

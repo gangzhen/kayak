@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      asideWidth: '200px',
+      asideWidth: '250px',
       isCollapse: false,
       breadcrumb: [],
     }
@@ -20,7 +20,7 @@ export default {
 
     rcCollapse(flag) {
       this.isCollapse = flag;
-      this.asideWidth = flag ? '64px' : '200px';
+      this.asideWidth = flag ? '64px' : '250px';
     },
 
     rcBreadcrumb(data) {

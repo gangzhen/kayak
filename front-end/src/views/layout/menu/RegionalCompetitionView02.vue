@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "RegionalCompetitionView",
+  name: "RegionalCompetitionView02",
   data() {
     return {
       searchForm: {
@@ -211,7 +211,7 @@ export default {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-if="userInfo.role === 'admin'" @click.native="onAddDialog">新增</el-button>
+          <el-button type="primary" v-if="false" @click.native="onAddDialog">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -242,19 +242,18 @@ export default {
           <el-table-column
               prop="region"
               label="地区"
-              :formatter="handleRegionDisplay"
               align="center">
           </el-table-column>
           <el-table-column
-              prop="year"
-              label="年份"
+              prop="date"
+              label="比赛日期"
               align="center">
           </el-table-column>
           <el-table-column
               label="操作"
               width="250"
               align="center"
-              v-if="userInfo.role === 'admin'">
+              v-if="false">
             <template slot-scope="scope">
               <el-button
                   size="mini"

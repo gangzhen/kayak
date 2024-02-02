@@ -2,7 +2,7 @@
 import ValidCode from "@/components/ValidCode.vue";
 
 export default {
-  name: "CompetitionRegistrationView",
+  name: "CompetitionRegistrationView01",
   components: {ValidCode},
   data() {
     return {
@@ -379,6 +379,15 @@ export default {
                      @change="handleRegionChange"
                      clearable>
             <el-option v-for="option in $regionOptions"
+                       :key="option.value"
+                       :label="option.label"
+                       :value="option.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="赛事级别:">
+          <el-select v-model="searchForm.region" placeholder="请选择赛事级别" @change="handleRegionChange" clearable>
+            <el-option v-for="option in $levelOptions"
                        :key="option.value"
                        :label="option.label"
                        :value="option.value">

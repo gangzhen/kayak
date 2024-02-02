@@ -38,4 +38,8 @@ public class UserPoints {
      */
     @TableField(exist = false)
     private Integer rank;
+
+
+    private String sai;
+    private String dai;
 }

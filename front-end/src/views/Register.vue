@@ -151,12 +151,12 @@ export default {
     <div class="p-lr-area">
 
       <div class="p-lr-area-img">
-        <img src="../assets/loginAndRegister.png" alt="" style="width: 100%;">
+        <img src="../assets/loginAndRegister.png" alt="" style="width: 80%;">
       </div>
 
       <div class="p-lr-area-input">
         <el-form class="p-lr-area-input-form" :model="registerForm" :rules="registerRules" ref="registerFormRef">
-          <div class="p-lr-area-input-title">中国网球协会赛事</div>
+          <div class="p-lr-area-input-title">赛艇皮划艇赛事管理系统</div>
           <el-form-item prop="username">
             <el-input v-model="registerForm.username" placeholder="请输入姓名" prefix-icon="el-icon-user"></el-input>
           </el-form-item>

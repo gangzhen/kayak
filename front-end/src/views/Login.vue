@@ -45,7 +45,7 @@ export default {
         this.$http.post('/user/login', this.loginForm).then(res => {
           if (res.code === '200') {
             localStorage.setItem('userInfo', JSON.stringify(res.data))
-            this.$router.push('/points')
+            this.$router.push('/points/1')
             this.$message.success('登录成功')
           } else {
             this.$message.error(res.msg)
@@ -86,11 +86,11 @@ export default {
   <div class="p-lr">
     <div class="p-lr-area">
       <div class="p-lr-area-img">
-        <img src="../assets/loginAndRegister.png" alt="" style="width: 100%;">
+        <img src="../assets/loginAndRegister.png" alt="" style="width: 80%;">
       </div>
       <div class="p-lr-area-input">
         <el-form class="p-lr-area-input-form" :model="loginForm" :rules="loginRules" ref="loginFormRef">
-          <div class="p-lr-area-input-title">中国网球协会赛事</div>
+          <div class="p-lr-area-input-title">赛艇皮划艇赛事管理系统</div>
           <el-form-item prop="idNumber">
             <el-input v-model="loginForm.idNumber" placeholder="请输入身份证号"
                       prefix-icon="el-icon-postcard"></el-input>

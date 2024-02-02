@@ -7,6 +7,12 @@ Vue.prototype.$adminRoleOptions = [
 Vue.prototype.$roleOptions = [
     {label: '运动员', value: 'athlete',},
     {label: '教练员', value: 'coach',},
+    {label: '裁判员', value: 'referee',},
+];
+
+Vue.prototype.$typeOptions = [
+    {label: '赛艇', value: '1',},
+    {label: '皮划艇', value: '2',},
 ];
 
 Vue.prototype.$genderOptions = [
@@ -28,8 +34,8 @@ Vue.prototype.$regionOptions = [
 ];
 
 Vue.prototype.$levelOptions = [
-    {label: 'A2000', value: 'A2000',},
-    {label: 'A1600', value: 'A1600',},
+    {label: '省级', value: 'A2000',},
+    {label: '市级', value: 'A1600',},
     {label: 'A1200', value: 'A1200',},
     {label: 'A900', value: 'A900',},
     {label: 'B800', value: 'B800',},
